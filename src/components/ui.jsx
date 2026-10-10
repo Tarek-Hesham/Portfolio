@@ -1,6 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { isTouch } from '../lib/scroll'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { isTouch, prefersReducedMotion } from '../lib/scroll'
+
+// Arabic letters join, so they must never be split into separate spans:
+// split Latin text into characters, Arabic text into words.
+export function splitGlyphs(text, lang) {
+  if (lang === 'ar') return text.split(/(\s+)/).filter(Boolean)
+  return text.split('')
+}
 
 // Pulls its child toward the cursor, then springs back.
 export function Magnetic({ children, strength = 0.35, className = '' }) {
@@ -38,7 +46,7 @@ export function Magnetic({ children, strength = 0.35, className = '' }) {
 // Text that rolls up to a duplicate copy on hover.
 export function RollText({ children }) {
   return (
-    <span className="roll" aria-hidden="false">
+    <span className="roll">
       <span className="roll-inner">
         <span>{children}</span>
         <span aria-hidden="true">{children}</span>
@@ -47,13 +55,52 @@ export function RollText({ children }) {
   )
 }
 
-// Splits a string into masked words for reveal animations.
-export function SplitWords({ text, className = 'word' }) {
-  return text.split(' ').map((w, i) => (
-    <span key={i} className="word-mask">
-      <span className={className}>{w}</span>{' '}
+const GLYPHS = {
+  latin: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/<>',
+  arabic: 'ابتثجحخدذرزسشصضطظعغفقكلمنهوي٠١٢٣٤٥٦٧٨٩',
+}
+
+// Decodes its text from random glyphs the first time it scrolls into view.
+export function Scramble({ text, className = '' }) {
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || prefersReducedMotion) return
+    const pool = /[؀-ۿ]/.test(text) ? GLYPHS.arabic : GLYPHS.latin
+    const state = { p: 0 }
+    let tween
+    const render = () => {
+      const revealed = Math.floor(state.p * text.length)
+      let out = text.slice(0, revealed)
+      for (let i = revealed; i < text.length; i++) {
+        out += text[i] === ' ' ? ' ' : pool[(Math.random() * pool.length) | 0]
+      }
+      el.textContent = out
+    }
+    const st = ScrollTrigger.create({
+      trigger: el,
+      start: 'top 92%',
+      once: true,
+      onEnter: () => {
+        tween = gsap.to(state, { p: 1, duration: 0.9, ease: 'none', onUpdate: render, onComplete: () => (el.textContent = text) })
+      },
+    })
+    return () => {
+      st.kill()
+      tween?.kill()
+      el.textContent = text
+    }
+  }, [text])
+
+  return (
+    <span className={className}>
+      <span className="sr-only">{text}</span>
+      <span ref={ref} aria-hidden="true">
+        {text}
+      </span>
     </span>
-  ))
+  )
 }
 
 export function SectionLabel({ index, children }) {
@@ -61,7 +108,7 @@ export function SectionLabel({ index, children }) {
     <p className="section-label">
       <span className="section-label-index">{index}</span>
       <span className="section-label-line" />
-      {children}
+      <Scramble text={children} />
     </p>
   )
 }

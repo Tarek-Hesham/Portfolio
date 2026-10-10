@@ -5,7 +5,7 @@ import { lockScroll } from '../lib/scroll'
 import ProjectArt from './ProjectArt'
 import { Magnetic, RollText } from './ui'
 
-export default function ProjectModal({ project, index, onClose }) {
+export default function ProjectModal({ project, index, onClose, ui }) {
   const root = useRef(null)
   const closeBtn = useRef(null)
   const closing = useRef(false)
@@ -62,7 +62,7 @@ export default function ProjectModal({ project, index, onClose }) {
 
   return createPortal(
     <div ref={root} className="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-lenis-prevent>
-      <button ref={closeBtn} className="modal-close" onClick={close} aria-label="Close project">
+      <button ref={closeBtn} className="modal-close" onClick={close} aria-label={ui.close}>
         <span />
         <span />
       </button>
@@ -80,15 +80,15 @@ export default function ProjectModal({ project, index, onClose }) {
           <p className="modal-desc">{project.description}</p>
           <dl className="modal-meta">
             <div>
-              <dt className="mono">Context</dt>
+              <dt className="mono">{ui.context}</dt>
               <dd>{project.year}</dd>
             </div>
             <div>
-              <dt className="mono">Role</dt>
+              <dt className="mono">{ui.role}</dt>
               <dd>{project.role}</dd>
             </div>
             <div>
-              <dt className="mono">Scope</dt>
+              <dt className="mono">{ui.scope}</dt>
               <dd>{project.scope.join(' · ')}</dd>
             </div>
           </dl>
@@ -96,7 +96,7 @@ export default function ProjectModal({ project, index, onClose }) {
         {project.link && (
           <Magnetic>
             <a href={project.link} target="_blank" rel="noreferrer" className="btn btn-pill btn-accent">
-              <RollText>{project.link.includes('behance') ? 'View case study on Behance' : 'Visit live site'}</RollText>{' '}
+              <RollText>{project.link.includes('behance') ? ui.behance : ui.live}</RollText>{' '}
               <span aria-hidden="true">↗</span>
             </a>
           </Magnetic>

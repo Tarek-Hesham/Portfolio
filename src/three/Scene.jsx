@@ -1,19 +1,21 @@
-import { Component, useEffect, useMemo, useRef } from 'react'
+import { Component, Suspense, useEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Float, Lightformer, MeshDistortMaterial } from '@react-three/drei'
+import { Environment, Lightformer, MeshDistortMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { scrollState, prefersReducedMotion } from '../lib/scroll'
+import { isRTL, scrollState, prefersReducedMotion } from '../lib/scroll'
+import Portrait from './Portrait'
+import ToolIcons from './ToolIcons'
 
 // Where the chrome blob sits for each section (matched by data-scene="…").
 // The scene blends between neighbouring keyframes as you scroll.
+// In the hero the portrait takes the stage, so the blob starts hidden.
 const KEYFRAMES = {
-  hero: { pos: [1.55, 0.05, 0], scale: 1.12, distort: 0.48, tint: '#ffffff' },
+  hero: { pos: [2.55, 0.35, -1], scale: 0.001, distort: 0.52, tint: '#ffffff' },
   about: { pos: [2.55, 0.35, -1], scale: 0.9, distort: 0.52, tint: '#ffd9c9' },
   work: { pos: [0, 0, -6], scale: 2.8, distort: 0.22, tint: '#4a4a4a' },
-  // Text-heavy sections: the blob sinks deep behind the content and dims.
-  services: { pos: [1.5, 0, -9], scale: 2.6, distort: 0.6, tint: '#3d3a38' },
-  experience: { pos: [-1.5, -0.2, -9], scale: 2.6, distort: 0.5, tint: '#38332f' },
+  services: { pos: [2.9, 0.5, -2.2], scale: 1.0, distort: 0.62, tint: '#ffffff' },
+  experience: { pos: [3.2, -0.9, -2.8], scale: 0.85, distort: 0.55, tint: '#ffe2d4' },
   contact: { pos: [3.1, 0.55, -2], scale: 1.05, distort: 0.5, tint: '#ffb08f' },
 }
 
@@ -44,17 +46,16 @@ function targetFor(out, mobile) {
   }
   const ka = KEYFRAMES[a?.key] || KEYFRAMES.hero
   const kb = KEYFRAMES[b?.key] || KEYFRAMES.hero
-  // Hold each keyframe for the first part of the stretch, then glide to the next.
-  const s = smooth(Math.min(Math.max((t - 0.35) / 0.65, 0), 1))
+  const s = smooth(Math.min(Math.max(t, 0), 1))
 
   out.pos.set(...ka.pos).lerp(out.tmpVec.set(...kb.pos), s)
   out.scale = THREE.MathUtils.lerp(ka.scale, kb.scale, s)
   out.distort = THREE.MathUtils.lerp(ka.distort, kb.distort, s)
   out.tint.set(ka.tint).lerp(out.tmpColor.set(kb.tint), s)
 
+  if (isRTL()) out.pos.x *= -1
   if (mobile) {
     out.pos.x *= 0.28
-    out.pos.y += a?.key === 'hero' && s < 0.5 ? 0.95 : 0
     out.scale *= 0.72
   }
   return out
@@ -176,7 +177,7 @@ function Particles({ count }) {
 
   useFrame((state, dt) => {
     if (!points.current) return
-    uniforms.uTime.value = state.clock.elapsedTime
+    points.current.material.uniforms.uTime.value = state.clock.elapsedTime
     if (!prefersReducedMotion) points.current.rotation.y += dt * 0.025
     points.current.rotation.x = scrollState.progress * 0.9
     points.current.position.x = THREE.MathUtils.damp(points.current.position.x, state.pointer.x * 0.4, 2, dt)
@@ -198,72 +199,6 @@ function Particles({ count }) {
         blending={THREE.AdditiveBlending}
       />
     </points>
-  )
-}
-
-// Small objects spread down the page; they drift with scroll for depth.
-const SHAPES = [
-  { type: 'torus', pos: [-3.6, 1.6, -2.5], scale: 0.42, mat: 'chrome' },
-  { type: 'octa', pos: [3.9, -2.1, -2], scale: 0.38, mat: 'wire' },
-  { type: 'sphere', pos: [-2.6, -5.5, -1.5], scale: 0.22, mat: 'accent' },
-  { type: 'knot', pos: [3.2, -8.5, -3], scale: 0.34, mat: 'chrome' },
-  { type: 'box', pos: [-4, -12, -2.5], scale: 0.4, mat: 'wire' },
-  { type: 'torus', pos: [3.6, -15.5, -2], scale: 0.36, mat: 'accent' },
-  { type: 'octa', pos: [-3.2, -19, -1.5], scale: 0.4, mat: 'chrome' },
-  { type: 'sphere', pos: [3.8, -22.5, -2.5], scale: 0.26, mat: 'chrome' },
-  { type: 'knot', pos: [-3.8, -26, -2], scale: 0.3, mat: 'wire' },
-  { type: 'box', pos: [3.4, -29.5, -1.8], scale: 0.32, mat: 'accent' },
-]
-
-function ShapeGeometry({ type }) {
-  switch (type) {
-    case 'torus':
-      return <torusGeometry args={[1, 0.36, 32, 96]} />
-    case 'octa':
-      return <octahedronGeometry args={[1, 0]} />
-    case 'knot':
-      return <torusKnotGeometry args={[0.8, 0.26, 160, 24]} />
-    case 'box':
-      return <boxGeometry args={[1.2, 1.2, 1.2]} />
-    default:
-      return <sphereGeometry args={[1, 48, 48]} />
-  }
-}
-
-function ShapeMaterial({ kind }) {
-  if (kind === 'wire') return <meshBasicMaterial color="#f1ede6" wireframe transparent opacity={0.35} />
-  if (kind === 'accent')
-    return <meshPhysicalMaterial color="#ff5a1f" metalness={0.2} roughness={0.15} clearcoat={1} envMapIntensity={1.4} />
-  return <meshStandardMaterial color="#ffffff" metalness={1} roughness={0.08} envMapIntensity={1.2} />
-}
-
-function Shapes({ mobile }) {
-  const group = useRef()
-  useFrame((state, dt) => {
-    if (!group.current) return
-    // ~5 world units ≈ one viewport at this depth; drift at ~60% scroll speed.
-    const target = (scrollState.y / window.innerHeight) * 3.1
-    group.current.position.y = THREE.MathUtils.damp(group.current.position.y, target, 6, dt)
-    group.current.children.forEach((child, i) => {
-      if (prefersReducedMotion) return
-      child.rotation.x += dt * (0.2 + i * 0.03)
-      child.rotation.y += dt * (0.25 + i * 0.02)
-    })
-  })
-  return (
-    <group ref={group}>
-      {SHAPES.map((s, i) => (
-        <Float key={i} speed={1.4} rotationIntensity={0.6} floatIntensity={1.2} enabled={!prefersReducedMotion}>
-          <mesh
-            position={[s.pos[0] * (mobile ? 0.45 : 1), s.pos[1], s.pos[2]]}
-            scale={s.scale * (mobile ? 0.7 : 1)}
-          >
-            <ShapeGeometry type={s.type} />
-            <ShapeMaterial kind={s.mat} />
-          </mesh>
-        </Float>
-      ))}
-    </group>
   )
 }
 
@@ -312,7 +247,7 @@ class WebGLBoundary extends Component {
   }
 }
 
-export default function Scene() {
+export default function Scene({ ready, lang, portrait }) {
   const mobile = window.innerWidth < 768
 
   useEffect(() => {
@@ -344,7 +279,12 @@ export default function Scene() {
           <Studio />
           <Blob mobile={mobile} />
           <Particles count={mobile ? 900 : 2200} />
-          <Shapes mobile={mobile} />
+          {portrait && (
+            <Suspense fallback={null}>
+              <Portrait src={portrait} mobile={mobile} ready={ready} lang={lang} />
+            </Suspense>
+          )}
+          <ToolIcons mobile={mobile} />
           <CameraRig />
         </Canvas>
       </WebGLBoundary>

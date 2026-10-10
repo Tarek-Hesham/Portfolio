@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { skills } from '../data/content'
+import { useContent } from '../i18n/LangContext'
 import { prefersReducedMotion, scrollState } from '../lib/scroll'
 
 function Row({ items, reverse }) {
@@ -23,6 +23,7 @@ function Row({ items, reverse }) {
 }
 
 export default function Marquee() {
+  const { skills } = useContent()
   const root = useRef(null)
 
   useGSAP(
@@ -40,6 +41,18 @@ export default function Marquee() {
         skew(gsap.utils.clamp(-8, 8, v * -0.35))
       }
       gsap.ticker.add(tick)
+
+      // Whole band tilts in on entry, then flattens.
+      gsap.fromTo(
+        '.marquee-row',
+        { rotate: (i) => (i % 2 ? 3 : -3), scale: 1.08 },
+        {
+          rotate: 0,
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'center center', scrub: true },
+        },
+      )
       return () => gsap.ticker.remove(tick)
     },
     { scope: root },

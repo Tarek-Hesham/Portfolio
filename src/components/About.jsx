@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { about, profile, stats } from '../data/content'
+import { useContent } from '../i18n/LangContext'
 import { SectionLabel } from './ui'
 
 export default function About() {
+  const { about, profile, stats, ui } = useContent()
   const root = useRef(null)
 
   useGSAP(
@@ -67,7 +68,7 @@ export default function About() {
   return (
     <section ref={root} id="about" className="about section" data-scene="about">
       <div className="container">
-        <SectionLabel index="01">About</SectionLabel>
+        <SectionLabel index="01">{ui.about.label}</SectionLabel>
         <h2 className="about-statement">
           {about.statement.split(' ').map((w, i) => (
             <span key={i} className="w">
@@ -107,7 +108,7 @@ export default function About() {
           </div>
         </div>
 
-        <ul className="stats" aria-label="Highlights">
+        <ul className="stats" aria-label={ui.about.highlights}>
           {stats.map((s) => (
             <li key={s.label} className="stat about-fade">
               <p className="stat-number">

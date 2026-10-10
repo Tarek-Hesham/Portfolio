@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { services } from '../data/content'
+import { useContent } from '../i18n/LangContext'
 import { SectionLabel } from './ui'
 
 export default function Services() {
+  const { services, ui } = useContent()
   const root = useRef(null)
 
   useGSAP(
@@ -36,13 +37,13 @@ export default function Services() {
   return (
     <section ref={root} id="services" className="services section" data-scene="services">
       <div className="container">
-        <SectionLabel index="03">Services</SectionLabel>
+        <SectionLabel index="03">{ui.services.label}</SectionLabel>
         <h2 className="services-title">
           <span className="mask">
-            <span>What I</span>
+            <span>{ui.services.title1}</span>
           </span>{' '}
           <span className="mask">
-            <span className="accent-italic">bring</span>
+            <span className="accent-italic">{ui.services.title2}</span>
           </span>
         </h2>
 
@@ -54,7 +55,7 @@ export default function Services() {
               <span className="mono service-index service-anim">0{i + 1}</span>
               <h3 className="service-title service-anim">{s.title}</h3>
               <p className="service-desc service-anim">{s.description}</p>
-              <ul className="service-tags service-anim" aria-label={`${s.title} tools`}>
+              <ul className="service-tags service-anim" aria-label={`${s.title} — ${ui.services.tools}`}>
                 {s.tags.map((t) => (
                   <li key={t} className="tag">
                     {t}

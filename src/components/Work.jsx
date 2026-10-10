@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { projects } from '../data/content'
-import { isTouch, prefersReducedMotion, scrollToTarget } from '../lib/scroll'
+import { useContent } from '../i18n/LangContext'
+import { isRTL, isTouch, prefersReducedMotion, scrollState, scrollToTarget } from '../lib/scroll'
 import ProjectArt from './ProjectArt'
 import ProjectModal from './ProjectModal'
-import { RollText } from './ui'
+import { RollText, Scramble } from './ui'
 
 const pad = (n) => String(n).padStart(2, '0')
 
-function ProjectCard({ project, index, onOpen }) {
+function ProjectCard({ project, index, onOpen, cursor }) {
   const media = useRef(null)
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function ProjectCard({ project, index, onOpen }) {
   }, [])
 
   return (
-    <article className="project-card" data-cursor="View">
+    <article className="project-card" data-cursor={cursor}>
       <div ref={media} className="project-media">
         <div className="project-media-inner">
           <ProjectArt project={project} index={index} />
@@ -66,6 +66,7 @@ function ProjectCard({ project, index, onOpen }) {
 }
 
 export default function Work() {
+  const { projects, ui } = useContent()
   const root = useRef(null)
   const track = useRef(null)
   const [active, setActive] = useState(null)
@@ -74,11 +75,13 @@ export default function Work() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia()
+      const rtl = isRTL()
+      const sign = rtl ? 1 : -1
 
       mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
         const distance = () => track.current.scrollWidth - window.innerWidth
         const tween = gsap.to(track.current, {
-          x: () => -distance(),
+          x: () => sign * distance(),
           ease: 'none',
           scrollTrigger: {
             trigger: root.current,
@@ -91,33 +94,64 @@ export default function Work() {
           },
         })
 
+        // Cards enter from the far edge (right in English, left in Arabic).
+        const enter = rtl ? 'right left' : 'left right'
+        const leave = rtl ? 'left right' : 'right left'
         gsap.utils.toArray('.project-card').forEach((card) => {
           gsap.fromTo(
             card.querySelector('.project-media-inner'),
-            { xPercent: -8 },
+            { xPercent: 8 * sign },
             {
-              xPercent: 8,
+              xPercent: -8 * sign,
               ease: 'none',
-              scrollTrigger: { trigger: card, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true },
+              scrollTrigger: { trigger: card, containerAnimation: tween, start: enter, end: leave, scrub: true },
             },
           )
           gsap.fromTo(
             card,
-            { rotateY: -22, z: -260 },
+            { rotateY: 22 * sign, z: -260 },
             {
               rotateY: 0,
               z: 0,
               ease: 'none',
-              scrollTrigger: { trigger: card, containerAnimation: tween, start: 'left right', end: 'center 60%', scrub: true },
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: tween,
+                start: enter,
+                end: rtl ? 'center 40%' : 'center 60%',
+                scrub: true,
+              },
+            },
+          )
+          gsap.fromTo(
+            card.querySelector('.project-media'),
+            { clipPath: rtl ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' },
+            {
+              clipPath: 'inset(0% 0% 0% 0%)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: card,
+                containerAnimation: tween,
+                start: enter,
+                end: rtl ? 'center 30%' : 'center 70%',
+                scrub: true,
+              },
             },
           )
         })
 
+        // Cards lean into the scroll speed.
+        const cards = gsap.utils.toArray('.project-card')
+        const skew = gsap.quickTo(cards, 'skewX', { duration: 0.6, ease: 'power3' })
+        const tick = () => skew(gsap.utils.clamp(-6, 6, scrollState.velocity * 0.18 * (rtl ? 1 : -1)))
+        gsap.ticker.add(tick)
+
         gsap.fromTo(
-          '.work-intro-title span',
+          '.work-intro-title .mask > span',
           { yPercent: 110 },
           { yPercent: 0, stagger: 0.1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: root.current, start: 'top 70%' } },
         )
+        return () => gsap.ticker.remove(tick)
       })
 
       mm.add('(max-width: 899px), (prefers-reduced-motion: reduce)', () => {
@@ -148,24 +182,29 @@ export default function Work() {
     <section ref={root} id="work" className="work" data-scene="work">
       <div ref={track} className="work-track">
         <div className="work-intro">
-          <p className="mono">(02) — Selected work</p>
-          <h2 className="work-intro-title">
-            <span className="mask"><span>Selected</span></span>
-            <span className="mask"><span className="accent-italic">Works</span></span>
-          </h2>
-          <p className="work-intro-copy">
-            Product work across fintech, on-demand services, marketplaces, e-learning and real estate. Click any
-            project for the full story.
+          <p className="mono">
+            <Scramble text={ui.work.label} />
           </p>
-          <p className="mono work-count">{pad(projects.length)} projects →</p>
+          <h2 className="work-intro-title">
+            <span className="mask">
+              <span>{ui.work.title1}</span>
+            </span>
+            <span className="mask">
+              <span className="accent-italic">{ui.work.title2}</span>
+            </span>
+          </h2>
+          <p className="work-intro-copy">{ui.work.intro}</p>
+          <p className="mono work-count">
+            {pad(projects.length)} {ui.work.count}
+          </p>
         </div>
 
         {projects.map((p, i) => (
-          <ProjectCard key={p.title} project={p} index={i} onOpen={open} />
+          <ProjectCard key={p.id} project={p} index={i} onOpen={open} cursor={ui.work.cursor} />
         ))}
 
         <div className="work-outro">
-          <p className="mono">Next could be yours</p>
+          <p className="mono">{ui.work.outroLabel}</p>
           <a
             href="#contact"
             className="work-outro-link"
@@ -174,8 +213,8 @@ export default function Work() {
               scrollToTarget('#contact')
             }}
           >
-            <RollText>Start a project</RollText>
-            <span aria-hidden="true">↗</span>
+            <RollText>{ui.work.outroLink}</RollText>
+            <span aria-hidden="true">{isRTL() ? '↖' : '↗'}</span>
           </a>
         </div>
       </div>
@@ -184,7 +223,7 @@ export default function Work() {
         <span className="work-progress-fill" />
       </div>
 
-      {active !== null && <ProjectModal project={projects[active]} index={active} onClose={close} />}
+      {active !== null && <ProjectModal project={projects[active]} index={active} onClose={close} ui={ui.modal} />}
     </section>
   )
 }

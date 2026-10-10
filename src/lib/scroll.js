@@ -58,6 +58,14 @@ export function scrollToTarget(target) {
   }
 }
 
+export function jumpTo(y) {
+  if (lenis) lenis.scrollTo(y, { immediate: true, force: true })
+  else window.scrollTo(0, y)
+  scrollState.y = y
+}
+
+export const isRTL = () => typeof document !== 'undefined' && document.documentElement.dir === 'rtl'
+
 export function lockScroll(locked) {
   if (lenis) {
     if (locked) lenis.stop()

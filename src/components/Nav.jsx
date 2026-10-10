@@ -1,18 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { profile } from '../data/content'
+import { useContent } from '../i18n/LangContext'
 import { lockScroll, scrollState, scrollToTarget } from '../lib/scroll'
 import { Magnetic, RollText } from './ui'
 
-const LINKS = [
-  { href: '#work', label: 'Work' },
-  { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#contact', label: 'Contact' },
-]
+const LINKS = ['work', 'about', 'services', 'experience', 'contact']
 
 export default function Nav({ ready }) {
+  const { profile, ui, switchLang } = useContent()
   const bar = useRef(null)
   const progress = useRef(null)
   const menu = useRef(null)
@@ -47,9 +42,10 @@ export default function Nav({ ready }) {
     lockScroll(open)
     if (open) {
       gsap.set(el, { visibility: 'visible' })
+      const corner = document.documentElement.dir === 'rtl' ? '0% 0%' : '100% 0%'
       gsap
         .timeline()
-        .fromTo(el, { clipPath: 'circle(0% at 100% 0%)' }, { clipPath: 'circle(150% at 100% 0%)', duration: 0.9, ease: 'expo.inOut' })
+        .fromTo(el, { clipPath: `circle(0% at ${corner})` }, { clipPath: `circle(150% at ${corner})`, duration: 0.9, ease: 'expo.inOut' })
         .fromTo('.menu-link', { yPercent: 110 }, { yPercent: 0, stagger: 0.06, duration: 0.8, ease: 'expo.out' }, '-=0.4')
       el.querySelector('a')?.focus()
       const onKey = (e) => e.key === 'Escape' && setOpen(false)
@@ -57,7 +53,7 @@ export default function Nav({ ready }) {
       return () => window.removeEventListener('keydown', onKey)
     } else if (el.style.visibility === 'visible') {
       gsap.to(el, {
-        clipPath: 'circle(0% at 100% 0%)',
+        clipPath: 'circle(0% at 50% 0%)',
         duration: 0.7,
         ease: 'expo.inOut',
         onComplete: () => gsap.set(el, { visibility: 'hidden' }),
@@ -71,36 +67,57 @@ export default function Nav({ ready }) {
     scrollToTarget(href)
   }
 
+  const toggleLang = () => {
+    setOpen(false)
+    switchLang()
+  }
+
+  const langButton = (extra = '') => (
+    <button className={`nav-lang ${extra}`} onClick={toggleLang} aria-label={ui.langSwitchAria} lang={ui.langSwitch === 'English' ? 'en' : 'ar'}>
+      <RollText>{ui.langSwitch}</RollText>
+    </button>
+  )
+
   return (
     <>
       <div className="scroll-progress" aria-hidden="true">
         <span ref={progress} />
       </div>
       <header ref={bar} className={`nav ${open ? 'is-menu-open' : ''}`}>
-        <a href="#top" className="nav-logo" onClick={(e) => go(e, '#top')} aria-label={`${profile.firstName} ${profile.lastName} — home`}>
-          <span className="nav-logo-mark">{profile.firstName[0]}{profile.lastName[0]}</span>
+        <a
+          href="#top"
+          className="nav-logo"
+          onClick={(e) => go(e, '#top')}
+          aria-label={`${profile.firstName} ${profile.lastName} — ${ui.nav.home}`}
+        >
+          <span className="nav-logo-mark" lang="en">
+            TH
+          </span>
           <span className="nav-logo-text">
-            <RollText>{profile.firstName} {profile.lastName}</RollText>
+            <RollText>
+              {profile.firstName} {profile.lastName}
+            </RollText>
           </span>
         </a>
         <nav aria-label="Primary" className="nav-links">
-          {LINKS.map((l) => (
-            <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
-              <RollText>{l.label}</RollText>
+          {LINKS.map((key) => (
+            <a key={key} href={`#${key}`} onClick={(e) => go(e, `#${key}`)}>
+              <RollText>{ui.nav[key]}</RollText>
             </a>
           ))}
         </nav>
+        {langButton()}
         <Magnetic strength={0.3}>
           <a href="#contact" className="btn btn-pill nav-cta" onClick={(e) => go(e, '#contact')}>
             <span className="btn-dot" />
-            <RollText>Let's talk</RollText>
+            <RollText>{ui.nav.letsTalk}</RollText>
           </a>
         </Magnetic>
         <button
           className={`nav-burger ${open ? 'is-open' : ''}`}
           aria-expanded={open}
           aria-controls="menu"
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-label={open ? ui.nav.closeMenu : ui.nav.openMenu}
           onClick={() => setOpen((v) => !v)}
         >
           <span />
@@ -110,19 +127,21 @@ export default function Nav({ ready }) {
 
       <div id="menu" ref={menu} className="menu" aria-hidden={!open} style={{ visibility: 'hidden' }}>
         <nav aria-label="Mobile">
-          {LINKS.map((l, i) => (
-            <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)} tabIndex={open ? 0 : -1}>
+          {LINKS.map((key, i) => (
+            <a key={key} href={`#${key}`} onClick={(e) => go(e, `#${key}`)} tabIndex={open ? 0 : -1}>
               <span className="menu-link-mask">
                 <span className="menu-link">
                   <small>0{i + 1}</small>
-                  {l.label}
+                  {ui.nav[key]}
                 </span>
               </span>
             </a>
           ))}
         </nav>
         <div className="menu-foot">
-          <a href={`mailto:${profile.email}`} tabIndex={open ? 0 : -1}>{profile.email}</a>
+          <a href={`mailto:${profile.email}`} tabIndex={open ? 0 : -1}>
+            {profile.email}
+          </a>
           <span>{profile.location}</span>
         </div>
       </div>

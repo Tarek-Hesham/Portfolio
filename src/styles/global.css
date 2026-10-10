@@ -1460,8 +1460,231 @@ a:focus-visible .roll-inner {
   user-select: none;
   translate: 0 8%;
 }
-.footer-giant span {
+.giant-word {
+  display: inline-flex;
+  overflow: hidden;
+  padding-block: 0.06em;
+}
+.giant-char {
+  display: inline-block;
+  white-space: pre;
+}
+.footer-giant .is-accent {
   color: rgba(255, 90, 31, 0.12);
+}
+
+/* ───────────────────────── Language switch ───────────────────────── */
+.nav-lang {
+  padding: 10px 14px;
+  border: 1px solid rgba(241, 237, 230, 0.4);
+  border-radius: 999px;
+  font-family: 'Alexandria', var(--font-sans);
+  font-size: 14px;
+}
+.nav-lang[lang='en'] {
+  font-family: var(--font-sans);
+}
+.lang-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 450;
+  display: none;
+  place-items: center;
+  background: var(--accent);
+  color: var(--accent-ink);
+  clip-path: inset(100% 0% 0% 0%);
+}
+.lang-curtain-mask {
+  display: block;
+  overflow: hidden;
+  padding: 0.1em 0.2em;
+}
+.lang-curtain-label {
+  display: block;
+  font-family: 'Alexandria', var(--font-sans);
+  font-size: clamp(3.5rem, 14vw, 13rem);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+/* ───────────────────────── Experience rail ───────────────────────── */
+.exp-wrap {
+  position: relative;
+}
+.exp-rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: -28px;
+  width: 1px;
+  background: var(--line);
+}
+.exp-rail-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.exp-dot {
+  position: absolute;
+  top: clamp(32px, 3.9vw, 54px);
+  inset-inline-start: -33px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: rgba(241, 237, 230, 0.25);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+@media (max-width: 1100px) {
+  .exp-wrap {
+    padding-inline-start: 24px;
+  }
+  .exp-rail {
+    inset-inline-start: 0;
+  }
+  .exp-dot {
+    inset-inline-start: -5px;
+  }
+}
+
+/* ───────────────────────── Arabic typography ───────────────────────── */
+html[lang='ar'] {
+  --font-sans: 'Alexandria', 'Bricolage Grotesque', system-ui, sans-serif;
+}
+html[lang='ar'] body {
+  font-family: var(--font-sans);
+  line-height: 1.75;
+}
+html[lang='ar'] .mono,
+html[lang='ar'] .section-label,
+html[lang='ar'] .tag,
+html[lang='ar'] .pl-meta,
+html[lang='ar'] .menu-foot,
+html[lang='ar'] .footer-top,
+html[lang='ar'] .cursor-label {
+  font-family: 'Alexandria', sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 13px;
+}
+html[lang='ar'] .accent-italic {
+  font-family: 'Aref Ruqaa', serif;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+html[lang='ar']
+  :is(.hero-title, .about-statement, .stat-number, .marquee-item, .work-intro-title, .project-title, .art-title,
+    .modal-title, .services-title, .service-title, .exp-title, .exp-role, .contact-title, .contact-email,
+    .footer-giant, .pl-name, .menu-link, .work-outro-link, .hero-role-text) {
+  letter-spacing: 0;
+}
+html[lang='ar'] .hero-title {
+  font-weight: 800;
+  line-height: 1.05;
+  font-size: clamp(4.2rem, min(16vw, 21vh), 17rem);
+}
+html[lang='ar'] .hero-char-mask {
+  padding: 0.12em 0.04em 0.2em;
+  margin-block: -0.12em;
+}
+html[lang='ar'] :is(.work-intro-title, .services-title, .exp-title, .contact-title, .modal-title, .menu-link) {
+  line-height: 1.25;
+}
+html[lang='ar'] .about-statement {
+  line-height: 1.45;
+}
+html[lang='ar'] .mask {
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+}
+html[lang='ar'] .footer-giant {
+  font-size: 15vw;
+  line-height: 1.1;
+}
+html[lang='ar'] .marquee-item {
+  line-height: 1.4;
+}
+html[lang='ar'] .roll {
+  height: 1.6em;
+  line-height: 1.6;
+}
+
+/* ───────────────────────── Right-to-left ───────────────────────── */
+[dir='rtl'] .skip-link {
+  left: auto;
+  right: 12px;
+}
+[dir='rtl'] :is(.pl-bar-fill, .scroll-progress span, .hero-line, .work-progress-fill, .service-line, .exp-line) {
+  transform-origin: right;
+}
+[dir='rtl'] .nav-logo {
+  margin-right: 0;
+  margin-left: auto;
+}
+[dir='rtl'] .hero-char {
+  transform-origin: right bottom;
+}
+[dir='rtl'] .hero-scroll {
+  right: auto;
+  left: var(--gutter);
+}
+[dir='rtl'] .about-portrait figcaption {
+  left: auto;
+  right: 16px;
+}
+[dir='rtl'] .stat {
+  padding: 32px 0 0 24px;
+}
+[dir='rtl'] .stat + .stat {
+  padding-left: 24px;
+  padding-right: 24px;
+  border-left: 0;
+  border-right: 1px solid var(--line);
+}
+[dir='rtl'] .project-hit {
+  text-align: right;
+}
+[dir='rtl'] .work-progress {
+  left: auto;
+  right: var(--gutter);
+}
+[dir='rtl'] :is(.art-title, .art-meta) {
+  left: auto;
+  right: 5%;
+}
+[dir='rtl'] .project-media :is(.art-title, .art-meta) {
+  left: auto;
+  right: 13%;
+}
+[dir='rtl'] .modal-close {
+  right: auto;
+  left: var(--gutter);
+}
+[dir='rtl'] .service:hover .service-title {
+  transform: translateX(-16px);
+}
+[dir='rtl'] .exp-body li {
+  padding-left: 0;
+  padding-right: 20px;
+}
+[dir='rtl'] .exp-body li::before {
+  left: auto;
+  right: 0;
+}
+/* Decorative bands keep a left-to-right track so the loop stays seamless. */
+[dir='rtl'] .marquee-row {
+  direction: ltr;
+}
+@media (max-width: 899px) {
+  [dir='rtl'] .project-media :is(.art-title, .art-meta) {
+    right: 5%;
+  }
+  [dir='rtl'] .stat:nth-child(3) {
+    padding-right: 0;
+    border-right: 0;
+  }
 }
 
 /* ───────────────────────── Responsive ───────────────────────── */
