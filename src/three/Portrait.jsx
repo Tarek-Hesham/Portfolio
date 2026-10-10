@@ -84,7 +84,7 @@ const fragment = /* glsl */ `
   }
 `
 
-export default function Portrait({ src, mobile, ready, lang }) {
+export default function Portrait({ src, mobile, ready, lang, active = true }) {
   const group = useRef(null)
   const material = useRef(null)
   const tex = useTexture(src)
@@ -165,7 +165,7 @@ export default function Portrait({ src, mobile, ready, lang }) {
     u.uViewScale.value = state.size.height / 900
     if (ready) u.uIntro.value = Math.min(1, u.uIntro.value + dt / (prefersReducedMotion ? 0.5 : 2.6))
 
-    const scatter = Math.min(Math.max(scrollState.y / (window.innerHeight * 0.85), 0), 1)
+    const scatter = active ? Math.min(Math.max(scrollState.y / (window.innerHeight * 0.85), 0), 1) : 1
     u.uScatter.value = THREE.MathUtils.damp(u.uScatter.value, scatter, 6, dt)
     g.visible = u.uScatter.value < 0.995
 

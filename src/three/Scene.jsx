@@ -17,6 +17,8 @@ const KEYFRAMES = {
   services: { pos: [2.9, 0.5, -2.2], scale: 1.0, distort: 0.62, tint: '#ffffff' },
   experience: { pos: [3.2, -0.9, -2.8], scale: 0.85, distort: 0.55, tint: '#ffe2d4' },
   contact: { pos: [3.1, 0.55, -2], scale: 1.05, distort: 0.5, tint: '#ffb08f' },
+  // Case-study pages are for reading: the blob steps aside.
+  project: { pos: [4, 0, -6], scale: 0.001, distort: 0.4, tint: '#3a3a3a' },
 }
 
 let sections = []
@@ -247,7 +249,7 @@ class WebGLBoundary extends Component {
   }
 }
 
-export default function Scene({ ready, lang, portrait }) {
+export default function Scene({ ready, lang, portrait, page }) {
   const mobile = window.innerWidth < 768
 
   useEffect(() => {
@@ -281,7 +283,7 @@ export default function Scene({ ready, lang, portrait }) {
           <Particles count={mobile ? 900 : 2200} />
           {portrait && (
             <Suspense fallback={null}>
-              <Portrait src={portrait} mobile={mobile} ready={ready} lang={lang} />
+              <Portrait src={portrait} mobile={mobile} ready={ready} lang={lang} active={page === 'home'} />
             </Suspense>
           )}
           <ToolIcons mobile={mobile} />

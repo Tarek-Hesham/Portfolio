@@ -1,175 +1,182 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useContent } from '../i18n/LangContext'
-import { isRTL, isTouch, prefersReducedMotion, scrollState, scrollToTarget } from '../lib/scroll'
-import ProjectArt from './ProjectArt'
+import { isRTL, isTouch, prefersReducedMotion, scrollToTarget } from '../lib/scroll'
+import { openProject } from '../lib/transitions'
 import ProjectModal from './ProjectModal'
-import { RollText, Scramble } from './ui'
+import { dirOf, RollText, Scramble, splitGlyphs } from './ui'
 
 const pad = (n) => String(n).padStart(2, '0')
 
-function ProjectCard({ project, index, onOpen, cursor }) {
-  const media = useRef(null)
+function StackCard({ project, index, total, lang, ui }) {
+  const root = useRef(null)
+  const video = useRef(null)
 
-  useEffect(() => {
-    const el = media.current
-    if (!el || isTouch || prefersReducedMotion) return
-    gsap.set(el, { transformPerspective: 1100 })
-    const rx = gsap.quickTo(el, 'rotationX', { duration: 0.8, ease: 'power3' })
-    const ry = gsap.quickTo(el, 'rotationY', { duration: 0.8, ease: 'power3' })
-    const sc = gsap.quickTo(el, 'scale', { duration: 0.8, ease: 'power3' })
-    const move = (e) => {
-      const r = el.getBoundingClientRect()
-      const px = (e.clientX - r.left) / r.width - 0.5
-      const py = (e.clientY - r.top) / r.height - 0.5
-      ry(px * 14)
-      rx(-py * 14)
-      sc(1.02)
-      el.style.setProperty('--mx', `${(px + 0.5) * 100}%`)
-      el.style.setProperty('--my', `${(py + 0.5) * 100}%`)
-    }
-    const leave = () => {
-      rx(0)
-      ry(0)
-      sc(1)
-    }
-    const card = el.parentElement
-    card.addEventListener('pointermove', move)
-    card.addEventListener('pointerleave', leave)
-    return () => {
-      card.removeEventListener('pointermove', move)
-      card.removeEventListener('pointerleave', leave)
-    }
-  }, [])
+  const open = (e) => {
+    e.preventDefault()
+    openProject(project, root.current.querySelector('.stack-media img'))
+  }
+
+  // Hover: warm up the hi-res cover and play the motion preview.
+  const enter = () => {
+    const img = new Image()
+    img.src = project.cover
+    if (isTouch || prefersReducedMotion || !video.current) return
+    video.current.play().catch(() => {})
+  }
+  const leave = () => video.current?.pause()
 
   return (
-    <article className="project-card" data-cursor={cursor}>
-      <div ref={media} className="project-media">
-        <div className="project-media-inner">
-          <ProjectArt project={project} index={index} />
+    <article ref={root} className="stack-card" style={{ '--i': index, '--accent': project.color }}>
+      <a
+        href={`/work/${project.slug}`}
+        className="stack-link"
+        onClick={open}
+        onPointerEnter={enter}
+        onPointerLeave={leave}
+        onFocus={enter}
+        data-cursor={ui.work.cursor}
+        aria-label={`${project.title} — ${ui.work.viewCase}`}
+      >
+        <div className="stack-inner">
+          <div className="stack-media">
+            <img src={project.cardCover} alt="" decoding="async" loading={index ? 'lazy' : 'eager'} />
+            {project.preview && (
+              <video ref={video} src={project.preview} muted loop playsInline preload="none" aria-hidden="true" />
+            )}
+          </div>
+          <div className="stack-shade" />
+          <div className="stack-dim" />
+
+          <div className="stack-top mono">
+            <span className="stack-index">
+              {pad(index + 1)} / {pad(total)}
+            </span>
+            <span>{project.category}</span>
+            <span>{project.year}</span>
+          </div>
+
+          <div className="stack-bottom">
+            <h3 className="stack-title" aria-hidden="true" dir={dirOf(project.title)}>
+              {splitGlyphs(project.title, lang).map((c, i) => (
+                <span key={i} className="stack-char-mask">
+                  <span className="stack-char">{c === ' ' ? ' ' : c}</span>
+                </span>
+              ))}
+            </h3>
+            <div className="stack-meta">
+              <p className="stack-tagline">{project.tagline}</p>
+              <ul className="stack-stats">
+                {project.stats.map((s) => (
+                  <li key={s} className="tag">
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <span className="stack-cta">
+              <RollText>{ui.work.viewCase}</RollText>
+              <span className="stack-cta-arrow" aria-hidden="true">
+                {isRTL() ? '↖' : '↗'}
+              </span>
+            </span>
+          </div>
         </div>
-        <div className="project-shine" />
-      </div>
-      <div className="project-info">
-        <span className="mono project-index">{pad(index + 1)}</span>
-        <h3 className="project-title">
-          <button className="project-hit" onClick={(e) => onOpen(index, e.currentTarget)}>
-            {project.title}
-          </button>
-        </h3>
-        <span className="mono project-cat">{project.category}</span>
-        <span className="mono project-year">{project.year}</span>
-      </div>
+      </a>
     </article>
   )
 }
 
 export default function Work() {
-  const { projects, ui } = useContent()
+  const { projects, archive, ui, lang } = useContent()
   const root = useRef(null)
-  const track = useRef(null)
   const [active, setActive] = useState(null)
   const opener = useRef(null)
 
   useGSAP(
     () => {
-      const mm = gsap.matchMedia()
-      const rtl = isRTL()
-      const sign = rtl ? 1 : -1
+      gsap.fromTo(
+        '.work-intro-title .mask > span',
+        { yPercent: 110 },
+        { yPercent: 0, stagger: 0.1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.work-head', start: 'top 75%' } },
+      )
 
-      mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
-        const distance = () => track.current.scrollWidth - window.innerWidth
-        const tween = gsap.to(track.current, {
-          x: () => sign * distance(),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.current,
-            start: 'top top',
-            end: () => `+=${distance()}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => gsap.set('.work-progress-fill', { scaleX: self.progress }),
-          },
-        })
+      const cards = gsap.utils.toArray('.stack-card')
+      cards.forEach((card, i) => {
+        const inner = card.querySelector('.stack-inner')
+        const media = card.querySelectorAll('.stack-media > *')
 
-        // Cards enter from the far edge (right in English, left in Arabic).
-        const enter = rtl ? 'right left' : 'left right'
-        const leave = rtl ? 'left right' : 'right left'
-        gsap.utils.toArray('.project-card').forEach((card) => {
-          gsap.fromTo(
-            card.querySelector('.project-media-inner'),
-            { xPercent: 8 * sign },
-            {
-              xPercent: -8 * sign,
-              ease: 'none',
-              scrollTrigger: { trigger: card, containerAnimation: tween, start: enter, end: leave, scrub: true },
-            },
-          )
-          gsap.fromTo(
-            card,
-            { rotateY: 22 * sign, z: -260 },
-            {
-              rotateY: 0,
-              z: 0,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: tween,
-                start: enter,
-                end: rtl ? 'center 40%' : 'center 60%',
-                scrub: true,
-              },
-            },
-          )
-          gsap.fromTo(
-            card.querySelector('.project-media'),
-            { clipPath: rtl ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' },
-            {
-              clipPath: 'inset(0% 0% 0% 0%)',
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: tween,
-                start: enter,
-                end: rtl ? 'center 30%' : 'center 70%',
-                scrub: true,
-              },
-            },
-          )
-        })
-
-        // Cards lean into the scroll speed.
-        const cards = gsap.utils.toArray('.project-card')
-        const skew = gsap.quickTo(cards, 'skewX', { duration: 0.6, ease: 'power3' })
-        const tick = () => skew(gsap.utils.clamp(-6, 6, scrollState.velocity * 0.18 * (rtl ? 1 : -1)))
-        gsap.ticker.add(tick)
-
+        // Title rises letter by letter once the card arrives.
         gsap.fromTo(
-          '.work-intro-title .mask > span',
-          { yPercent: 110 },
-          { yPercent: 0, stagger: 0.1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: root.current, start: 'top 70%' } },
+          card.querySelectorAll('.stack-char'),
+          { yPercent: 115, rotate: 8 },
+          {
+            yPercent: 0,
+            rotate: 0,
+            stagger: 0.035,
+            duration: 1.2,
+            ease: 'expo.out',
+            scrollTrigger: { trigger: card, start: 'top 60%' },
+          },
         )
-        return () => gsap.ticker.remove(tick)
+        gsap.fromTo(
+          card.querySelectorAll('.stack-top > *, .stack-meta, .stack-cta'),
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.06,
+            duration: 1,
+            ease: 'expo.out',
+            scrollTrigger: { trigger: card, start: 'top 55%' },
+          },
+        )
+
+        if (prefersReducedMotion) return
+
+        // Card unfolds from a smaller rounded window as it enters.
+        gsap.fromTo(
+          inner,
+          { clipPath: 'inset(14% 9% 0% 9% round 40px)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0% round 18px)',
+            ease: 'none',
+            scrollTrigger: { trigger: card, start: 'top bottom', end: 'top 25%', scrub: true },
+          },
+        )
+        // Cover drifts inside its frame.
+        gsap.fromTo(
+          media,
+          { scale: 1.28, yPercent: -7 },
+          {
+            scale: 1.05,
+            yPercent: 4,
+            ease: 'none',
+            scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: true },
+          },
+        )
+
+        // When the next card slides over, this one tips back into the stack.
+        const next = cards[i + 1]
+        if (!next) return
+        const st = { trigger: next, start: 'top bottom', end: 'top 12%', scrub: true }
+        gsap.to(inner, { scale: 0.9 - i * 0.02, rotateX: 9, yPercent: -3, ease: 'none', scrollTrigger: st })
+        gsap.to(card.querySelector('.stack-dim'), { opacity: 0.72, ease: 'none', scrollTrigger: st })
       })
 
-      mm.add('(max-width: 899px), (prefers-reduced-motion: reduce)', () => {
-        gsap.utils.toArray('.project-card').forEach((card) => {
-          gsap.fromTo(
-            card,
-            { y: 80, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: card, start: 'top 90%' } },
-          )
-        })
+      gsap.utils.toArray('.archive-row').forEach((row) => {
+        gsap.fromTo(
+          row,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: row, start: 'top 92%' } },
+        )
       })
-
-      return () => mm.revert()
     },
     { scope: root },
   )
 
-  const open = (i, el) => {
+  const openArchive = (i, el) => {
     opener.current = el
     setActive(i)
   }
@@ -179,9 +186,9 @@ export default function Work() {
   }
 
   return (
-    <section ref={root} id="work" className="work" data-scene="work">
-      <div ref={track} className="work-track">
-        <div className="work-intro">
+    <section ref={root} id="work" className="work section" data-scene="work">
+      <div className="container">
+        <div className="work-head">
           <p className="mono">
             <Scramble text={ui.work.label} />
           </p>
@@ -193,18 +200,42 @@ export default function Work() {
               <span className="accent-italic">{ui.work.title2}</span>
             </span>
           </h2>
-          <p className="work-intro-copy">{ui.work.intro}</p>
-          <p className="mono work-count">
-            {pad(projects.length)} {ui.work.count}
-          </p>
+          <div className="work-head-side">
+            <p className="work-intro-copy">{ui.work.intro}</p>
+            <p className="mono work-count">
+              {pad(projects.length)} {ui.work.count}
+            </p>
+          </div>
         </div>
 
-        {projects.map((p, i) => (
-          <ProjectCard key={p.id} project={p} index={i} onOpen={open} cursor={ui.work.cursor} />
-        ))}
+        <div className="stack">
+          {projects.map((p, i) => (
+            <StackCard key={p.id} project={p} index={i} total={projects.length} lang={lang} ui={ui} />
+          ))}
+        </div>
 
-        <div className="work-outro">
-          <p className="mono">{ui.work.outroLabel}</p>
+        <div className="archive">
+          <p className="mono archive-label">{ui.work.more}</p>
+          <ul>
+            {archive.map((p, i) => (
+              <li key={p.id}>
+                <button
+                  className="archive-row"
+                  style={{ '--accent': p.color }}
+                  onClick={(e) => openArchive(i, e.currentTarget)}
+                  data-cursor={ui.work.cursor}
+                >
+                  <span className="mono archive-index">{pad(projects.length + i + 1)}</span>
+                  <span className="archive-title">{p.title}</span>
+                  <span className="mono archive-cat">{p.category}</span>
+                  <span className="mono archive-year">{p.year}</span>
+                  <span className="archive-arrow" aria-hidden="true">
+                    {isRTL() ? '↖' : '↗'}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
           <a
             href="#contact"
             className="work-outro-link"
@@ -219,11 +250,7 @@ export default function Work() {
         </div>
       </div>
 
-      <div className="work-progress" aria-hidden="true">
-        <span className="work-progress-fill" />
-      </div>
-
-      {active !== null && <ProjectModal project={projects[active]} index={active} onClose={close} ui={ui.modal} />}
+      {active !== null && <ProjectModal project={archive[active]} index={projects.length + active} onClose={close} ui={ui.modal} />}
     </section>
   )
 }

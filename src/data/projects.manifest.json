@@ -1,0 +1,371 @@
+{
+ "bubblz": {
+  "cover": {
+   "w": 2000,
+   "h": 1600
+  },
+  "slides": [
+   {
+    "src": "/projects/bubblz/slides/01.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/bubblz/slides/02.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/bubblz/slides/03.webp",
+    "w": 1600,
+    "h": 1349
+   },
+   {
+    "src": "/projects/bubblz/slides/04.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/bubblz/slides/05.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/bubblz/slides/06.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/bubblz/slides/07.webp",
+    "w": 1600,
+    "h": 1189
+   },
+   {
+    "src": "/projects/bubblz/slides/08.webp",
+    "w": 1600,
+    "h": 1429
+   },
+   {
+    "src": "/projects/bubblz/slides/09.webp",
+    "w": 1600,
+    "h": 983
+   },
+   {
+    "src": "/projects/bubblz/slides/10.webp",
+    "w": 1600,
+    "h": 1417
+   },
+   {
+    "src": "/projects/bubblz/slides/11.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/bubblz/slides/12.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/bubblz/slides/13.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/bubblz/slides/14.webp",
+    "w": 1600,
+    "h": 1314
+   },
+   {
+    "src": "/projects/bubblz/slides/15.webp",
+    "w": 1600,
+    "h": 1383
+   },
+   {
+    "src": "/projects/bubblz/slides/16.webp",
+    "w": 1600,
+    "h": 1417
+   },
+   {
+    "src": "/projects/bubblz/slides/17.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/bubblz/slides/18.webp",
+    "w": 1600,
+    "h": 1326
+   },
+   {
+    "src": "/projects/bubblz/slides/19.webp",
+    "w": 1600,
+    "h": 1257
+   },
+   {
+    "src": "/projects/bubblz/slides/20.webp",
+    "w": 1600,
+    "h": 1234
+   },
+   {
+    "src": "/projects/bubblz/slides/21.webp",
+    "w": 1600,
+    "h": 1360
+   },
+   {
+    "src": "/projects/bubblz/slides/22.webp",
+    "w": 1600,
+    "h": 1371
+   },
+   {
+    "src": "/projects/bubblz/slides/23.webp",
+    "w": 1600,
+    "h": 1371
+   },
+   {
+    "src": "/projects/bubblz/slides/24.webp",
+    "w": 1600,
+    "h": 1280
+   },
+   {
+    "src": "/projects/bubblz/slides/25.webp",
+    "w": 1600,
+    "h": 1257
+   },
+   {
+    "src": "/projects/bubblz/slides/26.webp",
+    "w": 1600,
+    "h": 1269
+   },
+   {
+    "src": "/projects/bubblz/slides/27.webp",
+    "w": 1600,
+    "h": 1246
+   },
+   {
+    "src": "/projects/bubblz/slides/28.webp",
+    "w": 1600,
+    "h": 1051
+   },
+   {
+    "src": "/projects/bubblz/slides/29.webp",
+    "w": 1600,
+    "h": 1486
+   },
+   {
+    "src": "/projects/bubblz/slides/30.webp",
+    "w": 1600,
+    "h": 1200
+   },
+   {
+    "src": "/projects/bubblz/slides/31.webp",
+    "w": 1600,
+    "h": 1097
+   }
+  ]
+ },
+ "king-go": {
+  "cover": {
+   "w": 1616,
+   "h": 1264
+  },
+  "slides": [
+   {
+    "src": "/projects/king-go/slides/01.webp",
+    "w": 1600,
+    "h": 1257
+   },
+   {
+    "src": "/projects/king-go/slides/02.webp",
+    "w": 1600,
+    "h": 1257
+   },
+   {
+    "src": "/projects/king-go/slides/03.webp",
+    "w": 1600,
+    "h": 1234
+   },
+   {
+    "src": "/projects/king-go/slides/04.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/king-go/slides/05.webp",
+    "w": 1600,
+    "h": 1234
+   },
+   {
+    "src": "/projects/king-go/slides/06.webp",
+    "w": 1600,
+    "h": 1257
+   },
+   {
+    "src": "/projects/king-go/slides/07.webp",
+    "w": 1600,
+    "h": 1349
+   },
+   {
+    "src": "/projects/king-go/slides/08.webp",
+    "w": 1600,
+    "h": 1326
+   },
+   {
+    "src": "/projects/king-go/slides/09.webp",
+    "w": 1600,
+    "h": 1349
+   },
+   {
+    "src": "/projects/king-go/slides/10.webp",
+    "w": 1600,
+    "h": 1200
+   },
+   {
+    "src": "/projects/king-go/slides/11.webp",
+    "w": 1600,
+    "h": 1760
+   },
+   {
+    "src": "/projects/king-go/slides/12.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/king-go/slides/13.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/king-go/slides/14.webp",
+    "w": 1600,
+    "h": 1314
+   },
+   {
+    "src": "/projects/king-go/slides/15.webp",
+    "w": 1600,
+    "h": 1189
+   },
+   {
+    "src": "/projects/king-go/slides/16.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/king-go/slides/17.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/king-go/slides/18.webp",
+    "w": 1600,
+    "h": 1143
+   },
+   {
+    "src": "/projects/king-go/slides/19.webp",
+    "w": 1600,
+    "h": 1234
+   },
+   {
+    "src": "/projects/king-go/slides/20.webp",
+    "w": 1600,
+    "h": 1131
+   },
+   {
+    "src": "/projects/king-go/slides/21.webp",
+    "w": 1600,
+    "h": 1154
+   },
+   {
+    "src": "/projects/king-go/slides/22.webp",
+    "w": 1600,
+    "h": 1211
+   },
+   {
+    "src": "/projects/king-go/slides/23.webp",
+    "w": 1600,
+    "h": 1257
+   },
+   {
+    "src": "/projects/king-go/slides/24.webp",
+    "w": 1600,
+    "h": 1177
+   },
+   {
+    "src": "/projects/king-go/slides/25.webp",
+    "w": 1600,
+    "h": 1234
+   },
+   {
+    "src": "/projects/king-go/slides/26.webp",
+    "w": 1600,
+    "h": 1486
+   },
+   {
+    "src": "/projects/king-go/slides/27.webp",
+    "w": 1600,
+    "h": 1143
+   }
+  ]
+ },
+ "rafiky": {
+  "cover": {
+   "w": 2000,
+   "h": 1375
+  },
+  "slides": [
+   {
+    "src": "/projects/rafiky/slides/01.webp",
+    "w": 1600,
+    "h": 1100
+   },
+   {
+    "src": "/projects/rafiky/slides/02.webp",
+    "w": 1600,
+    "h": 1100
+   },
+   {
+    "src": "/projects/rafiky/slides/03.webp",
+    "w": 1600,
+    "h": 1100
+   },
+   {
+    "src": "/projects/rafiky/slides/04.webp",
+    "w": 1600,
+    "h": 1520
+   },
+   {
+    "src": "/projects/rafiky/slides/05.webp",
+    "w": 1600,
+    "h": 960
+   },
+   {
+    "src": "/projects/rafiky/slides/06.webp",
+    "w": 1600,
+    "h": 1100
+   },
+   {
+    "src": "/projects/rafiky/slides/07.webp",
+    "w": 1600,
+    "h": 1010
+   },
+   {
+    "src": "/projects/rafiky/slides/08.webp",
+    "w": 1600,
+    "h": 1150
+   },
+   {
+    "src": "/projects/rafiky/slides/09.webp",
+    "w": 1600,
+    "h": 1000
+   },
+   {
+    "src": "/projects/rafiky/slides/10.webp",
+    "w": 1600,
+    "h": 1300
+   },
+   {
+    "src": "/projects/rafiky/slides/11.webp",
+    "w": 1600,
+    "h": 900
+   }
+  ]
+ }
+}

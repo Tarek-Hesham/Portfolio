@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { useContent } from '../i18n/LangContext'
 import { lockScroll, scrollState, scrollToTarget } from '../lib/scroll'
+import { curtainTo } from '../lib/transitions'
 import { Magnetic, RollText } from './ui'
 
 const LINKS = ['work', 'about', 'services', 'experience', 'contact']
 
-export default function Nav({ ready }) {
+export default function Nav({ ready, page }) {
   const { profile, ui, switchLang } = useContent()
   const bar = useRef(null)
   const progress = useRef(null)
@@ -64,7 +65,8 @@ export default function Nav({ ready }) {
   const go = (e, href) => {
     e.preventDefault()
     setOpen(false)
-    scrollToTarget(href)
+    if (page === 'home') scrollToTarget(href)
+    else curtainTo('/', { label: ui.case.home, hash: href })
   }
 
   const toggleLang = () => {

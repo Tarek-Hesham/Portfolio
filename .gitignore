@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Raw project source files (large) — web versions live in public/projects
+/مشاريع/
