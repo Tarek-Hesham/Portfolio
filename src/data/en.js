@@ -4,7 +4,7 @@ export default {
     firstName: 'Tarek',
     lastName: 'Hesham',
     role: 'Product Designer',
-    roleDetail: 'UI/UX · Mobile & Web · Fintech · Arabic/English (RTL)',
+    roleDetail: 'UI/UX · Mobile & Web · Fintech',
     tagline:
       'I design mobile and web products that turn complex workflows into simple, bilingual experiences — from user research to pixel-perfect developer handoff.',
     location: 'Cairo, Egypt',
@@ -387,7 +387,7 @@ export default {
       place: 'Remote · Clients in Saudi Arabia, the UK and Egypt',
       points: [
         'Bubblz, Trendora, Learnnova, Premium Real Estate and LCIS — apps, platforms, websites and identities.',
-        'Delivered fully bilingual Arabic/English (RTL/LTR) products localized for the Saudi market.',
+        'Delivered products localized for the Saudi market.',
       ],
     },
     {
