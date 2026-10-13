@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { Magnetic, RollText, SectionLabel } from './ui'
 
 export default function Experience() {
@@ -69,7 +69,7 @@ export default function Experience() {
   )
 
   return (
-    <section ref={root} id="experience" className="experience section" data-scene="experience">
+    <section ref={root} id="experience" className="experience section">
       <div className="container">
         <SectionLabel index="04">{ui.experience.label}</SectionLabel>
         <div className="exp-head">

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { SectionLabel } from './ui'
 
 export default function Services() {
@@ -35,7 +35,7 @@ export default function Services() {
   )
 
   return (
-    <section ref={root} id="services" className="services section" data-scene="services">
+    <section ref={root} id="services" className="services section">
       <div className="container">
         <SectionLabel index="03">{ui.services.label}</SectionLabel>
         <h2 className="services-title">

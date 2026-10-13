@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { SectionLabel } from './ui'
 
 export default function About() {
@@ -30,7 +30,7 @@ export default function About() {
         )
       })
 
-      // Portrait: clip reveal + inner parallax.
+      // Portrait: clip reveal.
       gsap.fromTo(
         '.about-portrait',
         { clipPath: 'inset(100% 0% 0% 0%)' },
@@ -40,11 +40,6 @@ export default function About() {
           ease: 'expo.inOut',
           scrollTrigger: { trigger: '.about-portrait', start: 'top 80%' },
         },
-      )
-      gsap.fromTo(
-        '.about-portrait-inner',
-        { yPercent: -12 },
-        { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.about-portrait', scrub: true } },
       )
 
       // Count-up stats.
@@ -66,7 +61,7 @@ export default function About() {
   const initials = `${profile.firstName[0]}${profile.lastName[0]}`
 
   return (
-    <section ref={root} id="about" className="about section" data-scene="about">
+    <section ref={root} id="about" className="about section">
       <div className="container">
         <SectionLabel index="01">{ui.about.label}</SectionLabel>
         <h2 className="about-statement">
@@ -81,7 +76,15 @@ export default function About() {
           <figure className="about-portrait">
             <div className="about-portrait-inner">
               {profile.portrait ? (
-                <img src={profile.portrait} alt={`${profile.firstName} ${profile.lastName}`} loading="lazy" />
+                <>
+                  <img
+                    className="about-portrait-art"
+                    src={profile.portrait}
+                    alt={`${profile.firstName} ${profile.lastName}`}
+                    loading="lazy"
+                  />
+                  <img className="about-portrait-photo" src={profile.portrait} alt="" aria-hidden="true" loading="lazy" />
+                </>
               ) : (
                 <div className="about-portrait-placeholder" aria-hidden="true">
                   <span>{initials}</span>
@@ -89,6 +92,18 @@ export default function About() {
               )}
             </div>
             <figcaption className="mono">({profile.firstName} — {profile.location})</figcaption>
+            {/* Poster look: the photo flattened into four tones of the site palette. */}
+            <svg className="about-portrait-filter" aria-hidden="true">
+              <filter id="portrait-poster" colorInterpolationFilters="sRGB">
+                <feColorMatrix type="saturate" values="0" />
+                {/* Six equal brightness bands: black, brown, accent ×2, cream ×2. */}
+                <feComponentTransfer>
+                  <feFuncR type="discrete" tableValues="0.039 0.29 1 1 0.945 0.945" />
+                  <feFuncG type="discrete" tableValues="0.039 0.141 0.353 0.353 0.929 0.929" />
+                  <feFuncB type="discrete" tableValues="0.039 0.078 0.122 0.122 0.902 0.902" />
+                </feComponentTransfer>
+              </filter>
+            </svg>
           </figure>
 
           <div className="about-copy">

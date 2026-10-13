@@ -64,7 +64,6 @@ export function jumpTo(y) {
   scrollState.y = y
 }
 
-export const isRTL = () => typeof document !== 'undefined' && document.documentElement.dir === 'rtl'
 
 export function lockScroll(locked) {
   if (lenis) {

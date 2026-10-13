@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { prefersReducedMotion, scrollState } from '../lib/scroll'
 
 function Row({ items, reverse }) {

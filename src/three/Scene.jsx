@@ -1,127 +1,10 @@
-import { Component, Suspense, useEffect, useMemo, useRef } from 'react'
+import { Component, Suspense, useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Environment, Lightformer, MeshDistortMaterial } from '@react-three/drei'
+import { Environment, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { isRTL, scrollState, prefersReducedMotion } from '../lib/scroll'
+import { scrollState, prefersReducedMotion } from '../lib/scroll'
 import Portrait from './Portrait'
 import ToolIcons from './ToolIcons'
-
-// Where the chrome blob sits for each section (matched by data-scene="…").
-// The scene blends between neighbouring keyframes as you scroll.
-// In the hero the portrait takes the stage, so the blob starts hidden.
-const KEYFRAMES = {
-  hero: { pos: [2.55, 0.35, -1], scale: 0.001, distort: 0.52, tint: '#ffffff' },
-  about: { pos: [2.55, 0.35, -1], scale: 0.9, distort: 0.52, tint: '#ffd9c9' },
-  work: { pos: [0, 0, -6], scale: 2.8, distort: 0.22, tint: '#4a4a4a' },
-  services: { pos: [2.9, 0.5, -2.2], scale: 1.0, distort: 0.62, tint: '#ffffff' },
-  experience: { pos: [3.2, -0.9, -2.8], scale: 0.85, distort: 0.55, tint: '#ffe2d4' },
-  contact: { pos: [3.1, 0.55, -2], scale: 1.05, distort: 0.5, tint: '#ffb08f' },
-  // Case-study pages are for reading: the blob steps aside.
-  project: { pos: [4, 0, -6], scale: 0.001, distort: 0.4, tint: '#3a3a3a' },
-}
-
-let sections = []
-
-function measureSections() {
-  sections = [...document.querySelectorAll('[data-scene]')].map((el) => {
-    const box = el.closest('.pin-spacer') || el
-    const rect = box.getBoundingClientRect()
-    const top = rect.top + window.scrollY
-    return { key: el.dataset.scene, mid: top + rect.height / 2 }
-  })
-}
-
-const smooth = (t) => t * t * (3 - 2 * t)
-
-function targetFor(out, mobile) {
-  const center = scrollState.y + window.innerHeight / 2
-  let a = sections[0]
-  let b = sections[0]
-  let t = 0
-  for (let i = 0; i < sections.length; i++) {
-    if (center >= sections[i].mid) {
-      a = sections[i]
-      b = sections[i + 1] || sections[i]
-      t = b === a ? 0 : (center - a.mid) / (b.mid - a.mid)
-    }
-  }
-  const ka = KEYFRAMES[a?.key] || KEYFRAMES.hero
-  const kb = KEYFRAMES[b?.key] || KEYFRAMES.hero
-  const s = smooth(Math.min(Math.max(t, 0), 1))
-
-  out.pos.set(...ka.pos).lerp(out.tmpVec.set(...kb.pos), s)
-  out.scale = THREE.MathUtils.lerp(ka.scale, kb.scale, s)
-  out.distort = THREE.MathUtils.lerp(ka.distort, kb.distort, s)
-  out.tint.set(ka.tint).lerp(out.tmpColor.set(kb.tint), s)
-
-  if (isRTL()) out.pos.x *= -1
-  if (mobile) {
-    out.pos.x *= 0.28
-    out.scale *= 0.72
-  }
-  return out
-}
-
-function Blob({ mobile }) {
-  const mesh = useRef()
-  const mat = useRef()
-  const target = useMemo(
-    () => ({
-      pos: new THREE.Vector3(),
-      tmpVec: new THREE.Vector3(),
-      tint: new THREE.Color(),
-      tmpColor: new THREE.Color(),
-      scale: 1,
-      distort: 0.4,
-    }),
-    [],
-  )
-  const cur = useMemo(
-    () => ({ pos: new THREE.Vector3(...KEYFRAMES.hero.pos), scale: 0.001, distort: 0.4, tint: new THREE.Color('#fff') }),
-    [],
-  )
-
-  useFrame((state, dt) => {
-    if (!mesh.current || !mat.current) return
-    targetFor(target, mobile)
-    const k = 1 - Math.exp(-2.6 * dt)
-    const vel = Math.min(Math.abs(scrollState.velocity), 60)
-
-    cur.pos.lerp(target.pos, k)
-    cur.scale = THREE.MathUtils.lerp(cur.scale, target.scale, k)
-    cur.distort = THREE.MathUtils.lerp(cur.distort, target.distort + vel * 0.006, k)
-    cur.tint.lerp(target.tint, k)
-
-    const t = state.clock.elapsedTime
-    mesh.current.position.copy(cur.pos)
-    mesh.current.position.y += Math.sin(t * 0.7) * 0.06
-    mesh.current.scale.setScalar(cur.scale)
-
-    const spin = prefersReducedMotion ? 0 : dt * (0.18 + vel * 0.01)
-    mesh.current.rotation.y += spin
-    mesh.current.rotation.x = THREE.MathUtils.damp(mesh.current.rotation.x, state.pointer.y * 0.45, 3, dt)
-    mesh.current.rotation.z = THREE.MathUtils.damp(mesh.current.rotation.z, -state.pointer.x * 0.3, 3, dt)
-
-    mat.current.distort = prefersReducedMotion ? 0.25 : cur.distort
-    mat.current.color.copy(cur.tint)
-  })
-
-  return (
-    <mesh ref={mesh}>
-      <icosahedronGeometry args={[1, mobile ? 40 : 80]} />
-      <MeshDistortMaterial
-        ref={mat}
-        color="#ffffff"
-        metalness={1}
-        roughness={0.1}
-        distort={0.4}
-        speed={prefersReducedMotion ? 0 : 2.2}
-        envMapIntensity={1.25}
-      />
-    </mesh>
-  )
-}
 
 const particleVertex = /* glsl */ `
   attribute float aSize;
@@ -146,7 +29,7 @@ const particleFragment = /* glsl */ `
   void main() {
     float d = length(gl_PointCoord - 0.5);
     float a = smoothstep(0.5, 0.0, d);
-    gl_FragColor = vec4(vColor, a * vAlpha * 0.9);
+    gl_FragColor = vec4(vColor, a * vAlpha * 0.4);
   }
 `
 
@@ -165,7 +48,7 @@ function Particles({ count }) {
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
       positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 1.4
       positions[i * 3 + 2] = r * Math.cos(phi) - 4
-      sizes[i] = 0.6 + Math.random() * 2.2
+      sizes[i] = 0.5 + Math.random() * 1.6
       const c = Math.random() < 0.14 ? accent : white
       colors.set([c.r, c.g, c.b], i * 3)
     }
@@ -249,24 +132,8 @@ class WebGLBoundary extends Component {
   }
 }
 
-export default function Scene({ ready, lang, portrait, page }) {
+export default function Scene({ ready, portrait, page }) {
   const mobile = window.innerWidth < 768
-
-  useEffect(() => {
-    measureSections()
-    const onResize = () => measureSections()
-    window.addEventListener('resize', onResize)
-    window.addEventListener('load', onResize)
-    ScrollTrigger.addEventListener('refresh', onResize)
-    const ro = new ResizeObserver(onResize)
-    ro.observe(document.body)
-    return () => {
-      window.removeEventListener('resize', onResize)
-      window.removeEventListener('load', onResize)
-      ScrollTrigger.removeEventListener('refresh', onResize)
-      ro.disconnect()
-    }
-  }, [])
 
   return (
     <div className="webgl" aria-hidden="true">
@@ -279,11 +146,10 @@ export default function Scene({ ready, lang, portrait, page }) {
           <ambientLight intensity={0.3} />
           <directionalLight position={[4, 6, 4]} intensity={1.2} />
           <Studio />
-          <Blob mobile={mobile} />
-          <Particles count={mobile ? 900 : 2200} />
+          <Particles count={mobile ? 350 : 750} />
           {portrait && (
             <Suspense fallback={null}>
-              <Portrait src={portrait} mobile={mobile} ready={ready} lang={lang} active={page === 'home'} />
+              <Portrait src={portrait} mobile={mobile} ready={ready} active={page === 'home'} />
             </Suspense>
           )}
           <ToolIcons mobile={mobile} />

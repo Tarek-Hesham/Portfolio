@@ -3,19 +3,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { isTouch, prefersReducedMotion } from '../lib/scroll'
 
-const ARABIC = /[؀-ۿ]/
-
-// Direction of a piece of text by its own script (Latin brand names stay LTR on Arabic pages).
-export const dirOf = (text) => (ARABIC.test(text) ? 'rtl' : 'ltr')
-
-// Arabic letters join, so they must never be split into separate spans:
-// split Latin text into characters, Arabic text into words.
-// eslint-disable-next-line no-unused-vars
-export function splitGlyphs(text, lang) {
-  if (ARABIC.test(text)) return text.split(/(\s+)/).filter(Boolean)
-  return text.split('')
-}
-
 // Pulls its child toward the cursor, then springs back.
 export function Magnetic({ children, strength = 0.35, className = '' }) {
   const ref = useRef(null)

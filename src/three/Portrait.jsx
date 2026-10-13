@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
-import { isRTL, isTouch, prefersReducedMotion, scrollState } from '../lib/scroll'
+import { isTouch, prefersReducedMotion, scrollState } from '../lib/scroll'
 
 // The hero photo rebuilt as a field of particles. Brightness pushes each
 // particle forward (real depth), the cursor bends it like a lens, and on
@@ -84,7 +84,7 @@ const fragment = /* glsl */ `
   }
 `
 
-export default function Portrait({ src, mobile, ready, lang, active = true }) {
+export default function Portrait({ src, mobile, ready, active = true }) {
   const group = useRef(null)
   const material = useRef(null)
   const tex = useTexture(src)
@@ -150,11 +150,6 @@ export default function Portrait({ src, mobile, ready, lang, active = true }) {
     [],
   )
 
-  // Replay the assembly whenever the language changes.
-  useEffect(() => {
-    if (material.current) material.current.uniforms.uIntro.value = 0
-  }, [lang])
-
   useFrame((state, dt) => {
     const g = group.current
     if (!g || !material.current) return
@@ -169,12 +164,11 @@ export default function Portrait({ src, mobile, ready, lang, active = true }) {
     u.uScatter.value = THREE.MathUtils.damp(u.uScatter.value, scatter, 6, dt)
     g.visible = u.uScatter.value < 0.995
 
-    // Placement: hugging the far edge beside the name (mirrored for Arabic),
-    // above the name on phones. Sized from the visible width at this depth.
+    // Placement: centred behind the name in both languages, above the name
+    // on phones. Sized from the visible width at this depth.
     const vw = state.viewport.width
     const scale = mobile ? Math.min(0.6, (vw * 0.95) / size) : Math.min(1, vw / 5.6)
-    const edge = vw / 2 - size * scale * 0.4
-    const x = mobile ? 0 : (isRTL() ? -1 : 1) * edge
+    const x = 0
     const y = (mobile ? state.viewport.height * 0.2 : 0.05) + u.uScatter.value * 0.8
     g.position.x = THREE.MathUtils.damp(g.position.x, x, 4, dt)
     g.position.y = THREE.MathUtils.damp(g.position.y, y, 4, dt)

@@ -1,12 +1,11 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { prefersReducedMotion } from '../lib/scroll'
-import { splitGlyphs } from './ui'
 
 export default function Preloader({ onReveal, onComplete }) {
-  const { profile, ui, lang } = useContent()
+  const { profile, ui } = useContent()
   const root = useRef(null)
   const count = useRef(null)
 
@@ -43,7 +42,7 @@ export default function Preloader({ onReveal, onComplete }) {
   return (
     <div ref={root} className="preloader" role="status" aria-label={ui.loading}>
       <div className="pl-name" aria-hidden="true">
-        {splitGlyphs(name, lang).map((c, i) => (
+        {name.split('').map((c, i) => (
           <span key={i} className="pl-char-mask">
             <span className="pl-char">{c === ' ' ? ' ' : c}</span>
           </span>

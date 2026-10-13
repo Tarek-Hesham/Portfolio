@@ -1,14 +1,14 @@
 import { useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { scrollToTarget } from '../lib/scroll'
-import { Magnetic, RollText, SectionLabel, splitGlyphs } from './ui'
+import { Magnetic, RollText, SectionLabel } from './ui'
 
-function GiantWord({ text, lang, className = '' }) {
+function GiantWord({ text, className = '' }) {
   return (
     <span className={`giant-word ${className}`}>
-      {splitGlyphs(text, lang).map((c, i) => (
+      {text.split('').map((c, i) => (
         <span key={i} className="giant-char">
           {c}
         </span>
@@ -18,7 +18,7 @@ function GiantWord({ text, lang, className = '' }) {
 }
 
 export default function Contact() {
-  const { profile, ui, lang } = useContent()
+  const { profile, ui } = useContent()
   const t = ui.contact
   const root = useRef(null)
   const [copied, setCopied] = useState(false)
@@ -80,7 +80,7 @@ export default function Contact() {
   const year = new Date().getFullYear()
 
   return (
-    <section ref={root} id="contact" className="contact section" data-scene="contact">
+    <section ref={root} id="contact" className="contact section">
       <div className="container">
         <SectionLabel index="05">{t.label}</SectionLabel>
         <h2 className="contact-title">
@@ -151,8 +151,8 @@ export default function Contact() {
         </footer>
       </div>
       <p className="footer-giant" aria-hidden="true">
-        <GiantWord text={profile.firstName} lang={lang} />
-        <GiantWord text={profile.lastName} lang={lang} className="is-accent" />
+        <GiantWord text={profile.firstName} />
+        <GiantWord text={profile.lastName} className="is-accent" />
       </p>
     </section>
   )

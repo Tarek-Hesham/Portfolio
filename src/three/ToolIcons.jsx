@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Float, RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
-import { isRTL, prefersReducedMotion, scrollState } from '../lib/scroll'
+import { prefersReducedMotion, scrollState } from '../lib/scroll'
 
 // Floating 3D design-tool icons spread down the page.
 
@@ -286,13 +286,12 @@ export default function ToolIcons({ mobile }) {
     // ~5 world units ≈ one viewport at this depth; drift at ~60% scroll speed.
     const target = (scrollState.y / window.innerHeight) * 3.1
     g.position.y = THREE.MathUtils.damp(g.position.y, target, 6, dt)
-    const side = (isRTL() ? -1 : 1) * (mobile ? 0.45 : 1)
+    const side = mobile ? 0.45 : 1
 
     const t = state.clock.elapsedTime
     const vel = Math.max(-40, Math.min(40, scrollState.velocity))
     items.current.forEach((m, i) => {
       if (!m) return
-      // Mirror positions (not the icons themselves) for Arabic.
       m.position.x = THREE.MathUtils.damp(m.position.x, LAYOUT[i].pos[0] * side, 4, dt)
       const base = LAYOUT[i].rot
       const sway = prefersReducedMotion ? 0 : 1
@@ -315,7 +314,7 @@ export default function ToolIcons({ mobile }) {
           <Float key={i} speed={1.3} rotationIntensity={0.25} floatIntensity={1.1} enabled={!prefersReducedMotion}>
             <group
               ref={(el) => (items.current[i] = el)}
-              position={[it.pos[0] * (mobile ? 0.45 : 1) * (isRTL() ? -1 : 1), it.pos[1], it.pos[2]]}
+              position={[it.pos[0] * (mobile ? 0.45 : 1), it.pos[1], it.pos[2]]}
               scale={it.scale * (mobile ? 0.7 : 1)}
             >
               <Icon />

@@ -2,11 +2,12 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useContent } from '../i18n/LangContext'
-import { isRTL, prefersReducedMotion } from '../lib/scroll'
+import { useContent } from '../data/content'
+import { prefersReducedMotion } from '../lib/scroll'
+import { wordChars } from '../lib/text'
 import { curtainTo, openProject } from '../lib/transitions'
 import Contact from '../components/Contact'
-import { dirOf, Magnetic, RollText, SectionLabel, splitGlyphs } from '../components/ui'
+import { Magnetic, RollText, SectionLabel } from '../components/ui'
 
 const pad = (n) => String(n).padStart(2, '0')
 
@@ -26,7 +27,7 @@ function InViewVideo({ src, poster }) {
 }
 
 export default function ProjectPage({ project: p, ready }) {
-  const { projects, ui, lang } = useContent()
+  const { projects, ui } = useContent()
   const t = ui.case
   const root = useRef(null)
   const index = projects.findIndex((x) => x.slug === p.slug)
@@ -126,22 +127,26 @@ export default function ProjectPage({ project: p, ready }) {
   }
 
   return (
-    <div ref={root} className="case" style={{ '--accent': p.color }} data-scene="project">
+    <div ref={root} className="case" style={{ '--accent': p.color }}>
       <header className="case-hero">
         <img className="case-cover" src={p.cover} alt={p.title} />
         <div className="case-hero-shade" />
         <div className="case-hero-gradient" />
         <div className="container case-hero-inner">
           <a href="/" className="case-back case-reveal" onClick={back}>
-            <span aria-hidden="true">{isRTL() ? '→' : '←'}</span> <RollText>{t.back}</RollText>
+            <span aria-hidden="true">←</span> <RollText>{t.back}</RollText>
           </a>
           <p className="mono case-reveal">
             ({pad(index + 1)}/{pad(projects.length)}) — {p.category} — {p.year}
           </p>
-          <h1 className="case-title" aria-label={p.title} dir={dirOf(p.title)}>
-            {splitGlyphs(p.title, lang).map((c, i) => (
-              <span key={i} className="case-char-mask" aria-hidden="true">
-                <span className="case-char">{c === ' ' ? ' ' : c}</span>
+          <h1 className="case-title" aria-label={p.title}>
+            {wordChars(p.title).map((word, w) => (
+              <span key={w} className="title-word">
+                {word.map(({ c, i }) => (
+                  <span key={i} className="case-char-mask" aria-hidden="true">
+                    <span className="case-char">{c}</span>
+                  </span>
+                ))}
               </span>
             ))}
           </h1>
@@ -237,7 +242,7 @@ export default function ProjectPage({ project: p, ready }) {
         <div className="case-next-shade" />
         <div className="container case-next-inner">
           <p className="mono">{t.next}</p>
-          <p className="case-next-title" dir={dirOf(next.title)}>{next.title}</p>
+          <p className="case-next-title">{next.title}</p>
           <p className="case-next-tag">{next.tagline}</p>
         </div>
       </a>

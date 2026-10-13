@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { lockScroll, scrollState, scrollToTarget } from '../lib/scroll'
 import { curtainTo } from '../lib/transitions'
 import { Magnetic, RollText } from './ui'
@@ -8,7 +8,7 @@ import { Magnetic, RollText } from './ui'
 const LINKS = ['work', 'about', 'services', 'experience', 'contact']
 
 export default function Nav({ ready, page }) {
-  const { profile, ui, switchLang } = useContent()
+  const { profile, ui } = useContent()
   const bar = useRef(null)
   const progress = useRef(null)
   const menu = useRef(null)
@@ -43,7 +43,7 @@ export default function Nav({ ready, page }) {
     lockScroll(open)
     if (open) {
       gsap.set(el, { visibility: 'visible' })
-      const corner = document.documentElement.dir === 'rtl' ? '0% 0%' : '100% 0%'
+      const corner = '100% 0%'
       gsap
         .timeline()
         .fromTo(el, { clipPath: `circle(0% at ${corner})` }, { clipPath: `circle(150% at ${corner})`, duration: 0.9, ease: 'expo.inOut' })
@@ -69,17 +69,6 @@ export default function Nav({ ready, page }) {
     else curtainTo('/', { label: ui.case.home, hash: href })
   }
 
-  const toggleLang = () => {
-    setOpen(false)
-    switchLang()
-  }
-
-  const langButton = (extra = '') => (
-    <button className={`nav-lang ${extra}`} onClick={toggleLang} aria-label={ui.langSwitchAria} lang={ui.langSwitch === 'English' ? 'en' : 'ar'}>
-      <RollText>{ui.langSwitch}</RollText>
-    </button>
-  )
-
   return (
     <>
       <div className="scroll-progress" aria-hidden="true">
@@ -92,7 +81,7 @@ export default function Nav({ ready, page }) {
           onClick={(e) => go(e, '#top')}
           aria-label={`${profile.firstName} ${profile.lastName} — ${ui.nav.home}`}
         >
-          <span className="nav-logo-mark" lang="en">
+          <span className="nav-logo-mark">
             TH
           </span>
           <span className="nav-logo-text">
@@ -108,7 +97,6 @@ export default function Nav({ ready, page }) {
             </a>
           ))}
         </nav>
-        {langButton()}
         <Magnetic strength={0.3}>
           <a href="#contact" className="btn btn-pill nav-cta" onClick={(e) => go(e, '#contact')}>
             <span className="btn-dot" />

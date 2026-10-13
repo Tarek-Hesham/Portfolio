@@ -78,8 +78,8 @@ export async function curtainTo(path, { label = '', hash = null } = {}) {
   if (busy) return
   busy = true
   rememberHome(path)
-  const curtain = document.querySelector('.lang-curtain')
-  const text = curtain?.querySelector('.lang-curtain-label')
+  const curtain = document.querySelector('.curtain')
+  const text = curtain?.querySelector('.curtain-label')
   if (text) text.textContent = label
   lockScroll(true)
 

@@ -1,26 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useContent } from '../i18n/LangContext'
+import { useContent } from '../data/content'
 import { isTouch, scrollToTarget } from '../lib/scroll'
-import { Magnetic, RollText, splitGlyphs } from './ui'
+import { Magnetic, RollText } from './ui'
 
-// The first intro plays after the preloader; later ones (language switch)
-// wait for the curtain to start lifting.
+// The first intro plays after the preloader; later ones (coming back from a
+// case study) wait for the curtain to start lifting.
 let introPlayed = false
 
-function Glyphs({ text, lang }) {
-  return splitGlyphs(text, lang).map((c, i) => (
+function Glyphs({ text }) {
+  return text.split('').map((c, i) => (
     <span key={i} className="hero-char-mask">
       <span className="hero-char">{c}</span>
     </span>
   ))
 }
 
-function LocalTime({ timezone, lang }) {
+function LocalTime({ timezone }) {
   const [time, setTime] = useState('')
   useEffect(() => {
-    const fmt = new Intl.DateTimeFormat(lang === 'ar' ? 'ar-EG-u-nu-latn' : 'en-GB', {
+    const fmt = new Intl.DateTimeFormat('en-GB', {
       hour: '2-digit',
       minute: '2-digit',
       timeZone: timezone,
@@ -29,12 +29,12 @@ function LocalTime({ timezone, lang }) {
     update()
     const id = setInterval(update, 15000)
     return () => clearInterval(id)
-  }, [timezone, lang])
+  }, [timezone])
   return <span>{time}</span>
 }
 
 export default function Hero({ ready }) {
-  const { profile, ui, lang } = useContent()
+  const { profile, ui } = useContent()
   const root = useRef(null)
 
   // Intro, once the preloader lifts.
@@ -61,9 +61,8 @@ export default function Hero({ ready }) {
   useGSAP(
     (ctx, contextSafe) => {
       const st = { trigger: root.current, start: 'top top', end: 'bottom top', scrub: true }
-      const dir = document.documentElement.dir === 'rtl' ? -1 : 1
-      gsap.to('.hero-title-1', { xPercent: -14 * dir, ease: 'none', scrollTrigger: st })
-      gsap.to('.hero-title-2', { xPercent: 10 * dir, ease: 'none', scrollTrigger: st })
+      gsap.to('.hero-title-1', { xPercent: -14, ease: 'none', scrollTrigger: st })
+      gsap.to('.hero-title-2', { xPercent: 10, ease: 'none', scrollTrigger: st })
       gsap.to('.hero-inner', { yPercent: 28, opacity: 0, ease: 'none', scrollTrigger: st })
 
       if (isTouch) return
@@ -93,23 +92,23 @@ export default function Hero({ ready }) {
   )
 
   return (
-    <section ref={root} id="top" className="hero" data-scene="hero">
+    <section ref={root} id="top" className="hero">
       <div className="hero-inner container">
         <div className="hero-top">
           <p className="mono hero-reveal">
             {ui.hero.portfolio} ©{new Date().getFullYear()}
           </p>
           <p className="mono hero-reveal">
-            {profile.location} — <LocalTime timezone={profile.timezone} lang={lang} />
+            {profile.location} — <LocalTime timezone={profile.timezone} />
           </p>
         </div>
 
         <h1 className="hero-title" aria-label={`${profile.firstName} ${profile.lastName}`}>
           <span className="hero-title-1" aria-hidden="true">
-            <Glyphs text={profile.firstName} lang={lang} />
+            <Glyphs text={profile.firstName} />
           </span>
           <span className="hero-title-2" aria-hidden="true">
-            <Glyphs text={profile.lastName} lang={lang} />
+            <Glyphs text={profile.lastName} />
           </span>
         </h1>
 
