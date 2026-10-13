@@ -367,5 +367,670 @@
     "h": 900
    }
   ]
+ },
+ "trendora": {
+  "cover": {
+   "w": 2000,
+   "h": 1667
+  },
+  "slides": [
+   {
+    "src": "/projects/trendora/slides/01.webp",
+    "w": 1600,
+    "h": 933
+   },
+   {
+    "src": "/projects/trendora/slides/02.webp",
+    "w": 1600,
+    "h": 667
+   },
+   {
+    "src": "/projects/trendora/slides/03.webp",
+    "w": 1600,
+    "h": 1300
+   },
+   {
+    "src": "/projects/trendora/slides/04.webp",
+    "w": 1600,
+    "h": 1000
+   },
+   {
+    "src": "/projects/trendora/slides/05.webp",
+    "w": 1600,
+    "h": 1033
+   },
+   {
+    "src": "/projects/trendora/slides/06.webp",
+    "w": 1600,
+    "h": 1150
+   },
+   {
+    "src": "/projects/trendora/slides/07.webp",
+    "w": 1600,
+    "h": 867
+   },
+   {
+    "src": "/projects/trendora/slides/08.webp",
+    "w": 1600,
+    "h": 933
+   },
+   {
+    "src": "/projects/trendora/slides/09.webp",
+    "w": 1600,
+    "h": 1067
+   },
+   {
+    "src": "/projects/trendora/slides/10.webp",
+    "w": 1600,
+    "h": 933
+   },
+   {
+    "src": "/projects/trendora/slides/11.webp",
+    "w": 1600,
+    "h": 1117
+   },
+   {
+    "src": "/projects/trendora/slides/12.webp",
+    "w": 1600,
+    "h": 933
+   },
+   {
+    "src": "/projects/trendora/slides/13.webp",
+    "w": 1600,
+    "h": 1417
+   },
+   {
+    "src": "/projects/trendora/slides/14.webp",
+    "w": 1600,
+    "h": 1083
+   },
+   {
+    "src": "/projects/trendora/slides/15.webp",
+    "w": 1600,
+    "h": 1033
+   },
+   {
+    "src": "/projects/trendora/slides/16.webp",
+    "w": 1600,
+    "h": 1217
+   },
+   {
+    "src": "/projects/trendora/slides/17.webp",
+    "w": 1600,
+    "h": 1250
+   },
+   {
+    "src": "/projects/trendora/slides/18.webp",
+    "w": 1600,
+    "h": 1033
+   },
+   {
+    "src": "/projects/trendora/slides/19.webp",
+    "w": 1600,
+    "h": 1167
+   },
+   {
+    "src": "/projects/trendora/slides/20.webp",
+    "w": 1600,
+    "h": 1083
+   },
+   {
+    "src": "/projects/trendora/slides/21.webp",
+    "w": 1600,
+    "h": 1433
+   },
+   {
+    "src": "/projects/trendora/slides/22.webp",
+    "w": 1600,
+    "h": 1300
+   },
+   {
+    "src": "/projects/trendora/slides/23.webp",
+    "w": 1600,
+    "h": 1025
+   },
+   {
+    "src": "/projects/trendora/slides/24.webp",
+    "w": 1600,
+    "h": 3949
+   },
+   {
+    "src": "/projects/trendora/slides/25.webp",
+    "w": 1600,
+    "h": 1333
+   },
+   {
+    "src": "/projects/trendora/slides/26.webp",
+    "w": 1600,
+    "h": 900
+   }
+  ]
+ },
+ "learnnova": {
+  "cover": {
+   "w": 1918,
+   "h": 1531
+  },
+  "slides": [
+   {
+    "src": "/projects/learnnova/slides/01.webp",
+    "w": 1600,
+    "h": 1123
+   },
+   {
+    "src": "/projects/learnnova/slides/02.webp",
+    "w": 1600,
+    "h": 813
+   },
+   {
+    "src": "/projects/learnnova/slides/03.webp",
+    "w": 1600,
+    "h": 572
+   },
+   {
+    "src": "/projects/learnnova/slides/04.webp",
+    "w": 1600,
+    "h": 663
+   },
+   {
+    "src": "/projects/learnnova/slides/05.webp",
+    "w": 1600,
+    "h": 900
+   },
+   {
+    "src": "/projects/learnnova/slides/06.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/07.webp",
+    "w": 1600,
+    "h": 626
+   },
+   {
+    "src": "/projects/learnnova/slides/08.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/09.webp",
+    "w": 1600,
+    "h": 378
+   },
+   {
+    "src": "/projects/learnnova/slides/10.webp",
+    "w": 1600,
+    "h": 2598
+   },
+   {
+    "src": "/projects/learnnova/slides/11.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/12.webp",
+    "w": 1600,
+    "h": 1607
+   },
+   {
+    "src": "/projects/learnnova/slides/13.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/14.webp",
+    "w": 1600,
+    "h": 378
+   },
+   {
+    "src": "/projects/learnnova/slides/15.webp",
+    "w": 1600,
+    "h": 3364
+   },
+   {
+    "src": "/projects/learnnova/slides/16.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/17.webp",
+    "w": 1600,
+    "h": 378
+   },
+   {
+    "src": "/projects/learnnova/slides/18.webp",
+    "w": 1600,
+    "h": 1313
+   },
+   {
+    "src": "/projects/learnnova/slides/19.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/20.webp",
+    "w": 1600,
+    "h": 1821
+   },
+   {
+    "src": "/projects/learnnova/slides/21.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/22.webp",
+    "w": 1600,
+    "h": 1141
+   },
+   {
+    "src": "/projects/learnnova/slides/23.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/24.webp",
+    "w": 1600,
+    "h": 378
+   },
+   {
+    "src": "/projects/learnnova/slides/25.webp",
+    "w": 1600,
+    "h": 2815
+   },
+   {
+    "src": "/projects/learnnova/slides/26.webp",
+    "w": 1600,
+    "h": 6197
+   },
+   {
+    "src": "/projects/learnnova/slides/27.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/28.webp",
+    "w": 1600,
+    "h": 1313
+   },
+   {
+    "src": "/projects/learnnova/slides/29.webp",
+    "w": 1600,
+    "h": 1313
+   },
+   {
+    "src": "/projects/learnnova/slides/30.webp",
+    "w": 1600,
+    "h": 313
+   },
+   {
+    "src": "/projects/learnnova/slides/31.webp",
+    "w": 1600,
+    "h": 3390
+   },
+   {
+    "src": "/projects/learnnova/slides/32.webp",
+    "w": 1600,
+    "h": 2246
+   },
+   {
+    "src": "/projects/learnnova/slides/33.webp",
+    "w": 1600,
+    "h": 3358
+   },
+   {
+    "src": "/projects/learnnova/slides/34.webp",
+    "w": 1600,
+    "h": 3398
+   },
+   {
+    "src": "/projects/learnnova/slides/35.webp",
+    "w": 1600,
+    "h": 1402
+   },
+   {
+    "src": "/projects/learnnova/slides/36.webp",
+    "w": 1600,
+    "h": 380
+   },
+   {
+    "src": "/projects/learnnova/slides/37.webp",
+    "w": 1600,
+    "h": 513
+   }
+  ]
+ },
+ "premium-aqar": {
+  "cover": {
+   "w": 1920,
+   "h": 1420
+  },
+  "slides": [
+   {
+    "src": "/projects/premium-aqar/slides/01.webp",
+    "w": 1600,
+    "h": 1167
+   },
+   {
+    "src": "/projects/premium-aqar/slides/02.webp",
+    "w": 1600,
+    "h": 750
+   },
+   {
+    "src": "/projects/premium-aqar/slides/03.webp",
+    "w": 1600,
+    "h": 850
+   },
+   {
+    "src": "/projects/premium-aqar/slides/04.webp",
+    "w": 1600,
+    "h": 833
+   },
+   {
+    "src": "/projects/premium-aqar/slides/05.webp",
+    "w": 1600,
+    "h": 900
+   },
+   {
+    "src": "/projects/premium-aqar/slides/06.webp",
+    "w": 1600,
+    "h": 717
+   },
+   {
+    "src": "/projects/premium-aqar/slides/07.webp",
+    "w": 1600,
+    "h": 800
+   },
+   {
+    "src": "/projects/premium-aqar/slides/08.webp",
+    "w": 1600,
+    "h": 1250
+   },
+   {
+    "src": "/projects/premium-aqar/slides/09.webp",
+    "w": 1600,
+    "h": 983
+   },
+   {
+    "src": "/projects/premium-aqar/slides/10.webp",
+    "w": 1600,
+    "h": 1217
+   },
+   {
+    "src": "/projects/premium-aqar/slides/11.webp",
+    "w": 1600,
+    "h": 1167
+   },
+   {
+    "src": "/projects/premium-aqar/slides/12.webp",
+    "w": 1600,
+    "h": 2250
+   },
+   {
+    "src": "/projects/premium-aqar/slides/13.webp",
+    "w": 1600,
+    "h": 1350
+   },
+   {
+    "src": "/projects/premium-aqar/slides/14.webp",
+    "w": 1600,
+    "h": 1750
+   },
+   {
+    "src": "/projects/premium-aqar/slides/15.webp",
+    "w": 1600,
+    "h": 1050
+   },
+   {
+    "src": "/projects/premium-aqar/slides/16.webp",
+    "w": 1600,
+    "h": 833
+   },
+   {
+    "src": "/projects/premium-aqar/slides/17.webp",
+    "w": 1600,
+    "h": 1792
+   },
+   {
+    "src": "/projects/premium-aqar/slides/18.webp",
+    "w": 1600,
+    "h": 2767
+   },
+   {
+    "src": "/projects/premium-aqar/slides/19.webp",
+    "w": 1600,
+    "h": 817
+   },
+   {
+    "src": "/projects/premium-aqar/slides/20.webp",
+    "w": 1600,
+    "h": 1033
+   },
+   {
+    "src": "/projects/premium-aqar/slides/21.webp",
+    "w": 1600,
+    "h": 1000
+   },
+   {
+    "src": "/projects/premium-aqar/slides/22.webp",
+    "w": 1600,
+    "h": 1817
+   },
+   {
+    "src": "/projects/premium-aqar/slides/23.webp",
+    "w": 1600,
+    "h": 1233
+   },
+   {
+    "src": "/projects/premium-aqar/slides/24.webp",
+    "w": 1600,
+    "h": 1917
+   },
+   {
+    "src": "/projects/premium-aqar/slides/25.webp",
+    "w": 1600,
+    "h": 1183
+   },
+   {
+    "src": "/projects/premium-aqar/slides/26.webp",
+    "w": 1600,
+    "h": 3117
+   },
+   {
+    "src": "/projects/premium-aqar/slides/27.webp",
+    "w": 1600,
+    "h": 883
+   },
+   {
+    "src": "/projects/premium-aqar/slides/28.webp",
+    "w": 1600,
+    "h": 900
+   },
+   {
+    "src": "/projects/premium-aqar/slides/29.webp",
+    "w": 1600,
+    "h": 750
+   }
+  ]
+ },
+ "dream-home": {
+  "cover": {
+   "w": 1920,
+   "h": 1300
+  },
+  "slides": [
+   {
+    "src": "/projects/dream-home/slides/01.webp",
+    "w": 1600,
+    "h": 1200
+   },
+   {
+    "src": "/projects/dream-home/slides/02.webp",
+    "w": 1600,
+    "h": 983
+   },
+   {
+    "src": "/projects/dream-home/slides/03.webp",
+    "w": 1600,
+    "h": 900
+   },
+   {
+    "src": "/projects/dream-home/slides/04.webp",
+    "w": 1600,
+    "h": 1067
+   },
+   {
+    "src": "/projects/dream-home/slides/05.webp",
+    "w": 1600,
+    "h": 1250
+   },
+   {
+    "src": "/projects/dream-home/slides/06.webp",
+    "w": 1600,
+    "h": 983
+   },
+   {
+    "src": "/projects/dream-home/slides/07.webp",
+    "w": 1600,
+    "h": 1167
+   },
+   {
+    "src": "/projects/dream-home/slides/08.webp",
+    "w": 1600,
+    "h": 1267
+   },
+   {
+    "src": "/projects/dream-home/slides/09.webp",
+    "w": 1600,
+    "h": 6867
+   },
+   {
+    "src": "/projects/dream-home/slides/10.webp",
+    "w": 1600,
+    "h": 3183
+   },
+   {
+    "src": "/projects/dream-home/slides/11.webp",
+    "w": 1600,
+    "h": 3233
+   },
+   {
+    "src": "/projects/dream-home/slides/12.webp",
+    "w": 1600,
+    "h": 1083
+   },
+   {
+    "src": "/projects/dream-home/slides/13.webp",
+    "w": 1600,
+    "h": 1250
+   },
+   {
+    "src": "/projects/dream-home/slides/14.webp",
+    "w": 1600,
+    "h": 3083
+   },
+   {
+    "src": "/projects/dream-home/slides/15.webp",
+    "w": 1600,
+    "h": 1083
+   },
+   {
+    "src": "/projects/dream-home/slides/16.webp",
+    "w": 1600,
+    "h": 900
+   }
+  ]
+ },
+ "easy-car": {
+  "cover": {
+   "w": 1616,
+   "h": 1264
+  },
+  "slides": [
+   {
+    "src": "/projects/easy-car/slides/01.webp",
+    "w": 1400,
+    "h": 1200
+   },
+   {
+    "src": "/projects/easy-car/slides/02.webp",
+    "w": 1400,
+    "h": 1200
+   },
+   {
+    "src": "/projects/easy-car/slides/03.webp",
+    "w": 1400,
+    "h": 1837
+   },
+   {
+    "src": "/projects/easy-car/slides/04.webp",
+    "w": 1400,
+    "h": 1992
+   },
+   {
+    "src": "/projects/easy-car/slides/05.webp",
+    "w": 1400,
+    "h": 970
+   },
+   {
+    "src": "/projects/easy-car/slides/06.webp",
+    "w": 1400,
+    "h": 1300
+   },
+   {
+    "src": "/projects/easy-car/slides/07.webp",
+    "w": 1400,
+    "h": 1200
+   },
+   {
+    "src": "/projects/easy-car/slides/08.webp",
+    "w": 1400,
+    "h": 1400
+   },
+   {
+    "src": "/projects/easy-car/slides/09.webp",
+    "w": 1400,
+    "h": 1300
+   },
+   {
+    "src": "/projects/easy-car/slides/10.webp",
+    "w": 1400,
+    "h": 3134
+   },
+   {
+    "src": "/projects/easy-car/slides/11.webp",
+    "w": 1400,
+    "h": 1695
+   },
+   {
+    "src": "/projects/easy-car/slides/12.webp",
+    "w": 1400,
+    "h": 3000
+   },
+   {
+    "src": "/projects/easy-car/slides/13.webp",
+    "w": 1400,
+    "h": 3000
+   },
+   {
+    "src": "/projects/easy-car/slides/14.webp",
+    "w": 1400,
+    "h": 3708
+   },
+   {
+    "src": "/projects/easy-car/slides/15.webp",
+    "w": 1400,
+    "h": 2345
+   },
+   {
+    "src": "/projects/easy-car/slides/16.webp",
+    "w": 1400,
+    "h": 320
+   },
+   {
+    "src": "/projects/easy-car/slides/17.webp",
+    "w": 1400,
+    "h": 3696
+   }
+  ]
  }
 }

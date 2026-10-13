@@ -14,8 +14,6 @@ export default {
   ui: {
     skip: 'Skip to content',
     loading: 'Loading',
-    langSwitch: 'العربية',
-    langSwitchAria: 'التبديل إلى العربية',
     nav: {
       home: 'home',
       work: 'Work',
@@ -41,7 +39,7 @@ export default {
       title1: 'Selected',
       title2: 'Works',
       intro:
-        'Three in-depth case studies — plus more product work across fintech, e-learning and real estate. Open a project for the full story.',
+        'Eight in-depth case studies — plus more product work across fintech, e-learning and real estate. Open a project for the full story.',
       count: 'case studies ↓',
       more: 'More projects',
       viewCase: 'View case study',
@@ -195,6 +193,116 @@ export default {
         { title: 'RafikyPay', text: 'Scan a QR at the table, browse the menu, order and pay — with exclusive discounts.' },
       ],
     },
+    {
+      id: 'trendora',
+      title: 'Trendora',
+      category: 'Social Growth · Marketplace',
+      year: '2025',
+      tagline: 'The social growth marketplace — buy reach you can trust.',
+      overview:
+        'Trendora is a social growth marketplace that connects creators, brands and small businesses with verified sellers of likes, followers and views. Every flow answers the buyer’s two questions before they ask them — who am I buying from, and where is my order? — while giving sellers a real storefront to run a business.',
+      facts: [
+        { label: 'Role', value: 'UX/UI & Branding' },
+        { label: 'Platform', value: 'iOS & Android' },
+        { label: 'Users', value: 'Merchants · Buyers' },
+        { label: 'Tools', value: 'Figma' },
+      ],
+      stats: ['55+ screens', 'Live auctions', 'Two-sided marketplace'],
+      highlights: [
+        { title: 'Two roles, one app', text: 'Merchants open a store in minutes and track their sales; buyers discover rated stores — chosen on the very first screen.' },
+        { title: 'Live auctions', text: 'A countdown with a draining bar, a minimum-bid hint so bids are never rejected, and outbid and won alerts that bring bidders back.' },
+        { title: 'No more black boxes', text: 'Every order gets a status, a percentage and a colour, with “Contact support” right on the order it’s about.' },
+        { title: 'Wallet & rewards', text: 'Points on every order move buyers from Bronze to Platinum, with referral codes and one-tap redemption.' },
+      ],
+    },
+    {
+      id: 'learnnova',
+      title: 'Learnnova',
+      category: 'E-learning · Web Platform',
+      year: '2025',
+      tagline: 'A learner’s journey from first course to first job.',
+      overview:
+        'Learnnova is an interactive learning platform with hands-on courses in UI/UX design, graphic design and programming. It connects learners with expert mentors for one-on-one sessions and a community for feedback — real skills, real projects and a real career path in one place. Designed by a team of five in six weeks, through the full design-thinking process.',
+      facts: [
+        { label: 'Role', value: 'UI/UX Designer — team of 5' },
+        { label: 'Platform', value: 'Responsive web' },
+        { label: 'Timeline', value: '6 weeks' },
+        { label: 'Tools', value: 'Figma · Photoshop' },
+      ],
+      stats: ['30+ UI screens', '6 weeks', 'Team of 5'],
+      highlights: [
+        { title: 'Research first', text: 'A competitive analysis of platforms like Codecademy, Scrimba and LeetCode, plus a ten-question learner survey, shaped every feature.' },
+        { title: 'Mentors on demand', text: 'Mentor profiles show experience, reviews and open time slots, so booking a one-on-one session takes a few taps.' },
+        { title: 'Progress you can see', text: 'A profile dashboard tracks hours of activity, course progress and every certificate earned.' },
+        { title: 'Learning together', text: 'Community pages, study groups and course reviews keep learners connected and accountable.' },
+      ],
+    },
+    {
+      id: 'dreamhome',
+      title: 'Dream Home',
+      category: 'Real Estate · Website Redesign',
+      year: '2026',
+      tagline: 'A calmer way to find a home in Egypt.',
+      overview:
+        'Dream Home is a redesign of an Arabic real-estate platform for Egypt. The original site worked, but it felt like a busy listing board — repeated call and WhatsApp buttons, no prices on the cards and a text-heavy project page. The new direction is editorial and trust-first, built around one goal: trust the project before the first phone call. Its visual language, “Night, Bone & Lamp”, shows homes that glow at dusk.',
+      facts: [
+        { label: 'Role', value: 'UX/UI Designer' },
+        { label: 'Platform', value: 'Responsive web — desktop & mobile' },
+        { label: 'Scope', value: '7 pages + UI kit' },
+        { label: 'Tools', value: 'Figma' },
+      ],
+      stats: ['7 pages + UI kit', 'Arabic RTL', 'Desktop & mobile'],
+      highlights: [
+        { title: 'Decision data on every card', text: 'Price, area and delivery date sit on each listing, so buyers can compare without a single call.' },
+        { title: 'One advisor per journey', text: 'One advisor follows the buyer instead of dozens of repeated call and WhatsApp buttons.' },
+        { title: 'Search on a map', text: 'Results live on a map, so location is part of the decision from the very first screen.' },
+        { title: 'Payment plans, visualised', text: 'Down payment and instalments shown as clear numbers instead of long paragraphs.' },
+      ],
+    },
+    {
+      id: 'premiumaqar',
+      title: 'Premium Aqar',
+      category: 'Real Estate · Web Platform',
+      year: '2024',
+      tagline: 'Egypt’s real estate, city by city — with an advisor one tap away.',
+      overview:
+        'Premium Aqar is an Arabic-first real-estate platform for Egypt that publishes compounds, villages and commercial projects across the country’s key cities — New Capital, North Coast, New Cairo, Sheikh Zayed and more. I designed the complete responsive experience in Figma, then explored a luxury redesign concept with a calm monochrome palette, large architectural imagery and a search-first hero.',
+      facts: [
+        { label: 'Role', value: 'UI/UX Designer' },
+        { label: 'Platform', value: 'Responsive web — desktop & mobile' },
+        { label: 'Scope', value: '12 screens + redesign concept' },
+        { label: 'Tools', value: 'Figma' },
+      ],
+      stats: ['12 screens', 'Arabic-first RTL', 'Redesign concept'],
+      highlights: [
+        { title: 'City by city', text: 'Every project is organised by city, so browsing feels like a guide rather than a database.' },
+        { title: 'Key numbers first', text: 'Down payment, starting price and instalment years sit at the top of each project.' },
+        { title: 'Three-field search', text: 'Project name, location and type right in the hero — the fastest way into the listings.' },
+        { title: 'Advisor in one tap', text: 'Call and WhatsApp stay visible on every page and at every breakpoint.' },
+      ],
+    },
+    {
+      id: 'easycar',
+      title: 'Easy Car',
+      category: 'Fintech · Mobile App',
+      year: '2022',
+      tagline: 'Buying a car on instalments, without the paperwork maze.',
+      overview:
+        'Easy Car is a mobile app that makes buying a car on instalments in Egypt simple — pick a car from brands and showrooms, compare instalment plans and insurance, and submit your documents in one guided flow. Designed in a team of five, it follows the full UX process: discovery, design and usability testing, then a redesign round based on what users struggled with.',
+      facts: [
+        { label: 'Role', value: 'UI/UX Designer — team of 5' },
+        { label: 'Platform', value: 'Mobile app' },
+        { label: 'Process', value: 'Discovery · Design · Testing' },
+        { label: 'Testing', value: 'Maze usability tests & heatmaps' },
+      ],
+      stats: ['4 user interviews', 'Usability tested', 'Team of 5'],
+      highlights: [
+        { title: 'Research before pixels', text: 'A stakeholder interview, four user interviews and an analysis of Contact Cars and Hatla2ee defined the real problem.' },
+        { title: 'One guided instalment flow', text: 'Find a car, check its details, choose a plan and insurance, upload documents and pay the first amount — one clear path.' },
+        { title: 'Tested, then redesigned', text: 'Maze tests with heatmaps and misclick rates exposed confusing buttons, fixed in a redesign round.' },
+        { title: 'Trust built in', text: 'Clear fees, reviews and a visible process answer the questions buyers raised in interviews.' },
+      ],
+    },
   ],
 
   archive: [
@@ -207,36 +315,6 @@ export default {
       scope: ['User Research', 'Workflow Mapping', 'Usability Testing', 'Design System'],
       description:
         'Digital transformation of loan operations at Al Tadamun Microfinance Foundation. I mapped manual field and back-office workflows and redesigned them as three connected mobile apps: a client loan application app, a loan officer app for targets, incentives and repayment follow-ups, and a monitoring & reporting app that gives supervisors real-time visibility into field operations.',
-    },
-    {
-      id: 'trendora',
-      title: 'Trendora',
-      category: 'Marketplace · Mobile App',
-      year: 'Freelance',
-      role: 'Product Designer',
-      scope: ['Bidding System', 'User Flows', 'Component Library'],
-      description:
-        'A social media marketplace with a bidding system for account and growth services. I built intuitive buying and bidding flows and a clean component library for a young, digital-native audience.',
-    },
-    {
-      id: 'learnnova',
-      title: 'Learnnova',
-      category: 'E-learning · Web Platform',
-      year: 'Freelance',
-      role: 'Product Designer',
-      scope: ['Responsive Web', 'Course Discovery', 'Mentorship Flows', 'Design System'],
-      description:
-        'A responsive learning platform for students and mentors, covering course discovery, course detail pages and mentorship flows — backed by a scalable design system.',
-    },
-    {
-      id: 'easycar',
-      title: 'Easy Car',
-      category: 'Fintech · Mobile App',
-      year: 'Case Study',
-      role: 'Product Designer',
-      scope: ['UX Case Study', 'Mobile App', 'Finance Flows'],
-      description:
-        'A car finance mobile app case study — exploring how to make browsing, comparing and financing a car a clear, guided experience on mobile.',
     },
     {
       id: 'realestate',

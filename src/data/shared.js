@@ -1,5 +1,5 @@
-// Values that are the same in every language: links, colours, images.
-// Translatable text lives in en.js and ar.js.
+// Links, colours and images.
+// The text lives in en.js.
 import manifest from './projects.manifest.json'
 
 // Featured case studies — each gets its own page at /work/<slug>.
@@ -22,8 +22,8 @@ export const shared = {
   available: true,
   // Photo used for the 3D particle portrait in the hero.
   heroPortrait: '/portrait.jpg',
-  // Optional photo for the About section: '/about.jpg' (put the file in /public)
-  portrait: null,
+  // Photo in the About section frame (shown as initials when null).
+  portrait: '/portrait.jpg',
   socials: [
     { key: 'behance', href: 'https://www.behance.net/heshamtareedf5' },
     { key: 'linkedin', href: 'https://www.linkedin.com/in/tarek-hesham-2581971a7' },
@@ -37,17 +37,27 @@ export const shared = {
     }),
     kinggo: featured('king-go', { color: '#4da3ff', link: null }),
     rafiky: featured('rafiky', { color: '#f5a524', link: null }),
+    // No hover preview yet: the cover motion still needs compressing.
+    trendora: featured('trendora', { color: '#2ee5f5', link: null, preview: null }),
+    // Slides only: this project has no motion files.
+    learnnova: featured('learnnova', {
+      color: '#c8ff3d',
+      link: 'https://www.behance.net/gallery/229712835/Learnnova-Learning-website',
+      preview: null,
+      reel: null,
+    }),
+    // Reels and previews rendered from the redesign pages (desktop + mobile).
+    dreamhome: featured('dream-home', { color: '#e2963a', link: null }),
+    premiumaqar: featured('premium-aqar', { color: '#d6c3a0', link: null }),
+    // Reel scrolls through key case-study slides (no full pages for this app).
+    easycar: featured('easy-car', {
+      color: '#ff7eb6',
+      link: 'https://www.behance.net/gallery/154054045/Car-Finance-Mobile-App-Case-Study-Easy-Car',
+    }),
   },
   // Smaller projects listed under the featured case studies.
   archive: {
     tadamun: { color: '#ff5a1f', image: null, link: null },
-    trendora: { color: '#d7ff3a', image: null, link: null },
-    learnnova: { color: '#9dff8a', image: null, link: 'https://www.behance.net/gallery/229712835/Learnnova-Learning-website' },
-    easycar: {
-      color: '#ffb36b',
-      image: null,
-      link: 'https://www.behance.net/gallery/154054045/Car-Finance-Mobile-App-Case-Study-Easy-Car',
-    },
     realestate: { color: '#e8d5b0', image: null, link: 'https://www.behance.net/gallery/212660243/Real-Estate-Agency' },
     lcis: { color: '#ff4d8d', image: null, link: null },
   },
