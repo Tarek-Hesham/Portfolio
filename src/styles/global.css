@@ -1496,10 +1496,19 @@ a:focus-visible .roll-inner {
   border-radius: 18px;
   background: #06070b;
 }
-.case-slide img {
+.case-slide :is(img, video) {
   display: block;
   width: 100%;
   height: auto;
+}
+.case-slide.is-tall {
+  padding: clamp(32px, 6vw, 88px) 0;
+}
+.case-slide.is-tall video {
+  width: min(380px, 70%);
+  margin-inline: auto;
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
 }
 .case-cta {
   display: flex;

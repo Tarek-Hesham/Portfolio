@@ -1045,6 +1045,12 @@
     "h": 1486
    },
    {
+    "src": "/projects/kalo/motion/01-splash.mp4",
+    "w": 1440,
+    "h": 900,
+    "video": true
+   },
+   {
     "src": "/projects/kalo/slides/02.webp",
     "w": 1600,
     "h": 1597
@@ -1150,9 +1156,27 @@
     "h": 1120
    },
    {
+    "src": "/projects/kalo/motion/02-hero-wheel.mp4",
+    "w": 1440,
+    "h": 900,
+    "video": true
+   },
+   {
     "src": "/projects/kalo/slides/23.webp",
     "w": 1600,
     "h": 6729
+   },
+   {
+    "src": "/projects/kalo/motion/03-home-scroll.mp4",
+    "w": 1440,
+    "h": 900,
+    "video": true
+   },
+   {
+    "src": "/projects/kalo/motion/05-menu-modal.mp4",
+    "w": 1440,
+    "h": 900,
+    "video": true
    },
    {
     "src": "/projects/kalo/slides/24.webp",
@@ -1160,9 +1184,21 @@
     "h": 1843
    },
    {
+    "src": "/projects/kalo/motion/04-subscribe-flow.mp4",
+    "w": 1440,
+    "h": 900,
+    "video": true
+   },
+   {
     "src": "/projects/kalo/slides/25.webp",
     "w": 1600,
     "h": 2333
+   },
+   {
+    "src": "/projects/kalo/motion/06-account.mp4",
+    "w": 1440,
+    "h": 900,
+    "video": true
    },
    {
     "src": "/projects/kalo/slides/26.webp",
@@ -1178,6 +1214,13 @@
     "src": "/projects/kalo/slides/28.webp",
     "w": 1600,
     "h": 1395
+   },
+   {
+    "src": "/projects/kalo/motion/07-mobile.mp4",
+    "w": 780,
+    "h": 1688,
+    "video": true,
+    "bg": "#0D3B3F"
    },
    {
     "src": "/projects/kalo/slides/29.webp",

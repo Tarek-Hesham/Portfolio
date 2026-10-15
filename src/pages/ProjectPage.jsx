@@ -12,7 +12,7 @@ import { Magnetic, RollText, SectionLabel } from '../components/ui'
 const pad = (n) => String(n).padStart(2, '0')
 
 // Plays only while on screen, to keep the page light.
-function InViewVideo({ src, poster }) {
+function InViewVideo({ src, poster, width, height }) {
   const ref = useRef(null)
   useEffect(() => {
     const v = ref.current
@@ -23,7 +23,20 @@ function InViewVideo({ src, poster }) {
     io.observe(v)
     return () => io.disconnect()
   }, [])
-  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload="metadata" controls={prefersReducedMotion} />
+  return (
+    <video
+      ref={ref}
+      src={src}
+      poster={poster}
+      width={width}
+      height={height}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      controls={prefersReducedMotion}
+    />
+  )
 }
 
 export default function ProjectPage({ project: p, ready }) {
@@ -218,9 +231,18 @@ export default function ProjectPage({ project: p, ready }) {
           <SectionLabel index="04">{t.gallery}</SectionLabel>
         </div>
         <div className="case-slides">
+          {/* Slides can be images or motion clips; tall clips sit centred on their own backdrop. */}
           {p.slides.map((s, i) => (
-            <figure key={s.src} className="case-slide">
-              <img src={s.src} width={s.w} height={s.h} alt={`${p.title} — ${i + 1}`} loading="lazy" decoding="async" />
+            <figure
+              key={s.src}
+              className={`case-slide${s.video && s.h > s.w ? ' is-tall' : ''}`}
+              style={s.bg ? { background: s.bg } : undefined}
+            >
+              {s.video ? (
+                <InViewVideo src={s.src} width={s.w} height={s.h} />
+              ) : (
+                <img src={s.src} width={s.w} height={s.h} alt={`${p.title} — ${i + 1}`} loading="lazy" decoding="async" />
+              )}
             </figure>
           ))}
         </div>
