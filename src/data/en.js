@@ -39,7 +39,7 @@ export default {
       title1: 'Selected',
       title2: 'Works',
       intro:
-        'Nine in-depth case studies — plus more product work across fintech, e-learning and real estate. Open a project for the full story.',
+        'Nine in-depth case studies across food, fintech, travel, real estate and e-learning. Open a project for the full story.',
       count: 'case studies ↓',
       more: 'More projects',
       viewCase: 'View case study',
@@ -327,38 +327,7 @@ export default {
     },
   ],
 
-  archive: [
-    {
-      id: 'tadamun',
-      title: 'Al Tadamun Loan Suite',
-      category: 'Fintech · Mobile Apps',
-      year: '2023 — Now',
-      role: 'Lead Product Designer',
-      scope: ['User Research', 'Workflow Mapping', 'Usability Testing', 'Design System'],
-      description:
-        'Digital transformation of loan operations at Al Tadamun Microfinance Foundation. I mapped manual field and back-office workflows and redesigned them as three connected mobile apps: a client loan application app, a loan officer app for targets, incentives and repayment follow-ups, and a monitoring & reporting app that gives supervisors real-time visibility into field operations.',
-    },
-    {
-      id: 'realestate',
-      title: 'Premium Real Estate',
-      category: 'Real Estate · Website',
-      year: 'Freelance',
-      role: 'Design & Build',
-      scope: ['Responsive Web', 'Listings', 'Framer'],
-      description:
-        'A corporate website I designed and built for property listings, investment opportunities and services — responsive and easy to browse on any device.',
-    },
-    {
-      id: 'lcis',
-      title: 'LCIS London',
-      category: 'Consultancy · Brand & Web',
-      year: 'United Kingdom',
-      role: 'Brand & Product Designer',
-      scope: ['Visual Identity', 'Website UI/UX', 'Social Media System'],
-      description:
-        'A study-abroad consultancy in London. I created the visual identity, the website UI/UX and a social media design system that keeps every touchpoint consistent.',
-    },
-  ],
+  archive: [],
 
   services: [
     {
@@ -408,7 +377,7 @@ export default {
       period: '2023 — Present',
       place: 'Remote · Clients in Saudi Arabia, the UK and Egypt',
       points: [
-        'Bubblz, Trendora, Learnnova, Premium Real Estate and LCIS — apps, platforms, websites and identities.',
+        'Bubblz, Trendora and Learnnova — mobile apps and web platforms.',
         'Delivered products localized for the Saudi market.',
       ],
     },

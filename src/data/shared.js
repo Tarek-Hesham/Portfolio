@@ -58,11 +58,7 @@ export const shared = {
     }),
   },
   // Smaller projects listed under the featured case studies.
-  archive: {
-    tadamun: { color: '#ff5a1f', image: null, link: null },
-    realestate: { color: '#e8d5b0', image: null, link: 'https://www.behance.net/gallery/212660243/Real-Estate-Agency' },
-    lcis: { color: '#ff4d8d', image: null, link: null },
-  },
+  archive: {},
   stats: [
     { value: 3, suffix: '+' },
     { value: 8, suffix: '+' },

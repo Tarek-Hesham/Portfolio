@@ -357,7 +357,8 @@ export default function Work() {
         )}
 
         <div className="archive">
-          <p className="mono archive-label">{ui.work.more}</p>
+          {/* The smaller-projects list only shows when there is something in it. */}
+          {archive.length > 0 && <p className="mono archive-label">{ui.work.more}</p>}
           <ul>
             {archive.map((p, i) => (
               <li key={p.id}>
