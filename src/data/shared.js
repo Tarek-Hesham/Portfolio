@@ -31,6 +31,8 @@ export const shared = {
     { key: 'email', href: 'mailto:heshamtarek132@gmail.com' },
   ],
   featured: {
+    // Reel and preview cut from the project's own motion clips.
+    kalo: featured('kalo', { color: '#5cc98b', link: null }),
     bubblz: featured('bubblz', {
       color: '#9b7bff',
       link: 'https://www.behance.net/gallery/239845319/Bubbles-Laundry-Delivery',

@@ -1032,5 +1032,163 @@
     "h": 3696
    }
   ]
+ },
+ "kalo": {
+  "cover": {
+   "w": 2000,
+   "h": 1400
+  },
+  "slides": [
+   {
+    "src": "/projects/kalo/slides/01.webp",
+    "w": 1600,
+    "h": 1486
+   },
+   {
+    "src": "/projects/kalo/slides/02.webp",
+    "w": 1600,
+    "h": 1597
+   },
+   {
+    "src": "/projects/kalo/slides/03.webp",
+    "w": 1600,
+    "h": 1032
+   },
+   {
+    "src": "/projects/kalo/slides/04.webp",
+    "w": 1600,
+    "h": 1029
+   },
+   {
+    "src": "/projects/kalo/slides/05.webp",
+    "w": 1600,
+    "h": 1215
+   },
+   {
+    "src": "/projects/kalo/slides/06.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/07.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/08.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/09.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/10.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/11.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/12.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/13.webp",
+    "w": 1600,
+    "h": 1029
+   },
+   {
+    "src": "/projects/kalo/slides/14.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/15.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/16.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/17.webp",
+    "w": 1600,
+    "h": 1029
+   },
+   {
+    "src": "/projects/kalo/slides/18.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/19.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/20.webp",
+    "w": 1600,
+    "h": 1602
+   },
+   {
+    "src": "/projects/kalo/slides/21.webp",
+    "w": 1600,
+    "h": 1029
+   },
+   {
+    "src": "/projects/kalo/slides/22.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/23.webp",
+    "w": 1600,
+    "h": 6729
+   },
+   {
+    "src": "/projects/kalo/slides/24.webp",
+    "w": 1600,
+    "h": 1843
+   },
+   {
+    "src": "/projects/kalo/slides/25.webp",
+    "w": 1600,
+    "h": 2333
+   },
+   {
+    "src": "/projects/kalo/slides/26.webp",
+    "w": 1600,
+    "h": 1736
+   },
+   {
+    "src": "/projects/kalo/slides/27.webp",
+    "w": 1600,
+    "h": 1120
+   },
+   {
+    "src": "/projects/kalo/slides/28.webp",
+    "w": 1600,
+    "h": 1395
+   },
+   {
+    "src": "/projects/kalo/slides/29.webp",
+    "w": 1600,
+    "h": 1203
+   },
+   {
+    "src": "/projects/kalo/slides/30.webp",
+    "w": 1600,
+    "h": 1029
+   }
+  ]
  }
 }

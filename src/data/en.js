@@ -39,7 +39,7 @@ export default {
       title1: 'Selected',
       title2: 'Works',
       intro:
-        'Eight in-depth case studies — plus more product work across fintech, e-learning and real estate. Open a project for the full story.',
+        'Nine in-depth case studies — plus more product work across fintech, e-learning and real estate. Open a project for the full story.',
       count: 'case studies ↓',
       more: 'More projects',
       viewCase: 'View case study',
@@ -127,6 +127,28 @@ export default {
   ],
 
   featured: [
+    {
+      id: 'kalo',
+      title: 'Kalo',
+      category: 'Brand Identity · Website',
+      year: '2026',
+      tagline: 'Healthy meals, measured to the gram.',
+      overview:
+        'KALO is a Saudi healthy-meal subscription where every meal is measured to the gram. I built the brand end-to-end — naming, visual identity, packaging, social media, UX and a fully animated website. The name comes from “calorie”, and the symbol is a leaf shaped like a flame: clean energy from real food, set inside a custom geometric-Kufi wordmark.',
+      facts: [
+        { label: 'Role', value: 'Brand & UI/UX Designer' },
+        { label: 'Scope', value: 'Naming · Identity · Packaging · Social · UX · Website' },
+        { label: 'Platform', value: 'Responsive web — desktop & mobile' },
+        { label: 'Tools', value: 'Figma · HTML/CSS · GSAP' },
+      ],
+      stats: ['Brand to website', 'Animated website', 'Saudi Arabia'],
+      highlights: [
+        { title: 'A name from “calorie”', text: 'KALO is drawn from the word calorie, and its leaf-shaped flame stands for clean energy from real food.' },
+        { title: 'Custom Kufi wordmark', text: 'A geometric Kufi wordmark drawn from scratch, with the leaf-flame living inside the Kaf.' },
+        { title: 'Measured to the gram', text: 'Every meal card shows its calories and macros, and a step-by-step subscribe flow leads to a weekly dashboard.' },
+        { title: 'A site that moves', text: 'A rotating meal wheel, scroll-driven sections and a full subscribe journey, animated with GSAP.' },
+      ],
+    },
     {
       id: 'bubblz',
       title: 'Bubblz',
