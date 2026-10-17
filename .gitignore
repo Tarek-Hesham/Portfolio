@@ -25,3 +25,6 @@ dist-ssr
 
 # Raw project source files (large) — web versions live in public/projects
 /مشاريع/
+
+# Social media exports (large, not part of the site)
+/social-media/
