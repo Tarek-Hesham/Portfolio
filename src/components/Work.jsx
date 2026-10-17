@@ -93,6 +93,7 @@ function Showcase({ projects, ui }) {
   const trigger = useRef(null)
   const shown = useRef(0)
   const tilt = useRef(null)
+  const hovering = useRef(false)
   const [active, setActive] = useState(0)
   const total = projects.length
   const p = projects[active]
@@ -104,17 +105,37 @@ function Showcase({ projects, ui }) {
         if (!k) return
         tl.fromTo(
           layer.querySelectorAll('.slat'),
-          // Past 90° the strip shows its hidden back face, so it is gone even under perspective.
-          { rotateY: -110 },
-          { rotateY: 0, duration: 0.5, stagger: 0.06 },
+          // Strips start edge-on and invisible, then fade in as they turn. Once flat, their
+          // transform is cleared: strips left with a 3D transform vanish when the frame tilts on hover.
+          { rotateY: -90, autoAlpha: 0 },
+          {
+            rotateY: 0,
+            autoAlpha: 1,
+            duration: 0.5,
+            stagger: 0.06,
+            onComplete() {
+              gsap.set(this.targets(), { clearProps: 'transform' })
+            },
+          },
           (k - 1) * SEG + LEAD,
         )
       })
       tl.to({}, { duration: LEAD })
 
       // The visible project switches halfway through each flip.
+      // Only the cover on screen and the one flipping over it need painting. Hiding the rest
+      // keeps the browser from compositing 72 strips at once (which blanks them mid-scroll).
+      const layers = gsap.utils.toArray('.frame-layer', root.current)
+      const showLayers = () => {
+        let base = 0
+        for (let k = 1; k < total; k++) if (tl.time() >= flipEnd(k)) base = k
+        layers.forEach((l, k) => (l.style.visibility = k === base || k === base + 1 ? 'visible' : 'hidden'))
+      }
+      showLayers()
+
       tl.eventCallback('onUpdate', () => {
         root.current?.style.setProperty('--progress', tl.progress().toFixed(4))
+        showLayers()
         let next = 0
         for (let k = 1; k < total; k++) if (tl.time() >= flipEnd(k) - FLIP / 2) next = k
         if (next !== shown.current) {
@@ -161,8 +182,14 @@ function Showcase({ projects, ui }) {
     openProject(p, frameImg.current)
   }
 
+  // The project can change under a resting pointer (scrolling, the list): keep the preview going.
+  useEffect(() => {
+    if (hovering.current && !isTouch) video.current?.play().catch(() => {})
+  }, [p.preview])
+
   // Hover: warm up the hi-res cover, play the motion preview and lean toward the cursor.
   const enter = () => {
+    hovering.current = true
     const img = new Image()
     img.src = p.cover
     if (isTouch || !video.current) return
@@ -174,6 +201,7 @@ function Showcase({ projects, ui }) {
     tilt.current?.y(-((e.clientY - r.top) / r.height - 0.5) * 9)
   }
   const leave = () => {
+    hovering.current = false
     video.current?.pause()
     tilt.current?.x(0)
     tilt.current?.y(0)
@@ -227,7 +255,20 @@ function Showcase({ projects, ui }) {
               ))}
               <img ref={frameImg} className="frame-src" src={p.cardCover} alt="" />
               {p.preview && (
-                <video key={p.preview} ref={video} className="frame-video" src={p.preview} muted loop playsInline preload="none" aria-hidden="true" />
+                <video
+                  key={p.preview}
+                  ref={video}
+                  className="frame-video"
+                  src={p.preview}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  aria-hidden="true"
+                  // Shown only while actually playing, so a loading clip never covers the cover.
+                  onPlaying={(e) => e.currentTarget.classList.add('is-playing')}
+                  onPause={(e) => e.currentTarget.classList.remove('is-playing')}
+                />
               )}
             </span>
           </a>
@@ -292,7 +333,7 @@ function ShowcaseList({ projects, ui }) {
 }
 
 export default function Work() {
-  const { projects, archive, ui } = useContent()
+  const { projects, archive, profile, ui } = useContent()
   const root = useRef(null)
   const [active, setActive] = useState(null)
   const opener = useRef(null)
@@ -379,17 +420,33 @@ export default function Work() {
               </li>
             ))}
           </ul>
-          <a
-            href="#contact"
-            className="work-outro-link"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollToTarget('#contact')
-            }}
-          >
-            <RollText>{ui.work.outroLink}</RollText>
-            <span aria-hidden="true">↗</span>
-          </a>
+          {/* Closing band for the work section: the next step, plus a direct line. */}
+          <div className="work-outro">
+            <div>
+              <p className="mono work-outro-label">{ui.work.outroLabel}</p>
+              <a
+                href="#contact"
+                className="work-outro-link"
+                onClick={(e) => {
+                  e.preventDefault()
+                  scrollToTarget('#contact')
+                }}
+              >
+                <RollText>{ui.work.outroLink}</RollText>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <div className="work-outro-side">
+              {profile.available && (
+                <span className="status">
+                  <span className="status-dot" /> {profile.availability}
+                </span>
+              )}
+              <a href={`mailto:${profile.email}`} className="work-outro-mail">
+                <RollText>{profile.email}</RollText>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

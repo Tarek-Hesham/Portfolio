@@ -409,8 +409,27 @@ a:focus-visible .roll-inner {
   z-index: 400;
   display: grid;
   place-items: center;
+}
+/* Two halves of the backdrop that part to reveal the site. */
+.pl-door {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
   background: var(--bg);
-  clip-path: inset(0% 0% 0% 0%);
+}
+.pl-door-top {
+  top: 0;
+}
+.pl-door-bottom {
+  bottom: 0;
+}
+.pl-head {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2vw, 26px);
 }
 .pl-name {
   display: flex;
@@ -420,56 +439,36 @@ a:focus-visible .roll-inner {
   letter-spacing: -0.05em;
   text-transform: uppercase;
 }
-/* Project reel behind the name: one framed window flipping through the covers. */
-.pl-frame {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  width: min(38vw, 50vh * 1.25);
-  height: min(30.4vw, 50vh);
-  overflow: hidden;
-  border-radius: 18px;
-  background: var(--bg-raised);
-}
-.pl-shot {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Dimmed so the name reads on top; brightens as the frame opens. */
-  filter: brightness(0.6);
-}
-/* The name sits over the dimmed reel. */
-.pl-head {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  justify-items: center;
-  gap: clamp(10px, 1.6vw, 22px);
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
-}
 .pl-char-mask {
   display: inline-block;
   overflow: hidden;
 }
-.pl-role-mask {
-  display: block;
-  overflow: hidden;
-}
-.pl-role {
-  display: block;
-  font-size: clamp(0.8rem, 1.4vw, 1.15rem);
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--fg);
-}
 .pl-char {
   display: inline-block;
 }
+/* Accent line under the name; fills with the count. */
+.pl-line {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: var(--line);
+}
+.pl-line-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.pl-role {
+  font-size: clamp(0.85rem, 1.5vw, 1.2rem);
+  letter-spacing: 0.4em;
+  color: var(--fg);
+  white-space: pre;
+}
 .pl-meta {
   position: absolute;
+  z-index: 1;
   left: var(--gutter);
   right: var(--gutter);
   bottom: 40px;
@@ -485,18 +484,6 @@ a:focus-visible .roll-inner {
   font-size: clamp(2.5rem, 7vw, 6rem);
   line-height: 0.8;
   color: var(--fg);
-}
-.pl-bar {
-  bottom: 24px;
-  height: 1px;
-  background: var(--line);
-}
-.pl-bar-fill {
-  position: absolute;
-  inset: 0;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
 }
 
 /* ───────────────────────── Nav ───────────────────────── */
@@ -1181,7 +1168,6 @@ a:focus-visible .roll-inner {
   flex: 1;
   overflow: hidden;
   background: var(--bg-raised);
-  backface-visibility: hidden;
 }
 .slat-art {
   position: absolute;
@@ -1212,8 +1198,7 @@ a:focus-visible .roll-inner {
   opacity: 0;
   transition: opacity 0.6s;
 }
-.showcase-frame:hover .frame-video,
-.showcase-frame:focus-visible .frame-video {
+.frame-video.is-playing {
   opacity: 1;
 }
 
@@ -1239,7 +1224,7 @@ a:focus-visible .roll-inner {
 
 /* More projects */
 .archive {
-  margin-top: clamp(96px, 14vw, 180px);
+  margin-top: clamp(64px, 9vw, 120px);
 }
 .archive-label {
   margin-bottom: 16px;
@@ -1296,8 +1281,36 @@ a:focus-visible .roll-inner {
   transform: rotate(45deg);
   color: var(--accent);
 }
-.archive .work-outro-link {
-  margin-top: clamp(56px, 8vw, 96px);
+.work-outro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px 48px;
+  padding-block: clamp(32px, 4vw, 56px);
+  border-block: 1px solid var(--line);
+}
+.archive ul:not(:empty) + .work-outro {
+  margin-top: clamp(40px, 5vw, 72px);
+}
+.work-outro-label {
+  margin-bottom: 18px;
+  color: var(--accent);
+}
+.work-outro-side {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+  color: var(--fg-muted);
+}
+.work-outro-mail {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: var(--fg);
+}
+@media (max-width: 699px) {
+  .work-outro-side {
+    justify-items: start;
+  }
 }
 .work-outro-link {
   display: inline-flex;
