@@ -420,9 +420,25 @@ a:focus-visible .roll-inner {
   letter-spacing: -0.05em;
   text-transform: uppercase;
 }
+.pl-head {
+  display: grid;
+  justify-items: center;
+  gap: clamp(10px, 1.6vw, 22px);
+}
 .pl-char-mask {
   display: inline-block;
   overflow: hidden;
+}
+.pl-role-mask {
+  display: block;
+  overflow: hidden;
+}
+.pl-role {
+  display: block;
+  font-size: clamp(0.8rem, 1.4vw, 1.15rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 .pl-char {
   display: inline-block;
